@@ -11,7 +11,7 @@ body {
     overflow: hidden;
     /* חשוב מאוד! */
     Font-size: calc(10px + 0.5vw);
-    background-image: url("media/background.png");
+    background-image: url("../media/background.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     font-family: mplusExtraBold;
@@ -19,12 +19,14 @@ body {
 
 @font-face {
     font-family: mplusBold;
-    src: url("media/fonts/MPLUSRounded1c-Bold.ttf");
+    src: url("../media/fonts/MPLUSRounded1c-Bold.ttf") format("truetype");
+    font-style: normal;
 }
 
 @font-face {
     font-family: mplusExtraBold;
-    src: url("media/fonts/MPLUSRounded1c-ExtraBold.ttf");
+    src: url("../media/fonts/MPLUSRounded1c-ExtraBold.ttf") format("truetype");
+    font-style: normal;
 }
 
 .first-page-title {
