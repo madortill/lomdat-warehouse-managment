@@ -1,0 +1,99 @@
+html,
+body {
+    margin: 0 auto;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    direction: rtl;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    /* חשוב מאוד! */
+    Font-size: calc(10px + 0.5vw);
+    background-image: url("media/background.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    font-family: mplusExtraBold;
+}
+
+@font-face {
+    font-family: mplusBold;
+    src: url("media/fonts/MPLUSRounded1c-Bold.ttf");
+}
+
+@font-face {
+    font-family: mplusExtraBold;
+    src: url("media/fonts/MPLUSRounded1c-ExtraBold.ttf");
+}
+
+.first-page-title {
+    color: #FAD25B;
+    font-size: 6cqw;
+}
+
+.first-page-welcome {
+    color: aliceblue;
+}
+
+.titles-div {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.zigi-first-page {
+    position: absolute;
+    width: 20cqw;
+    transform: rotate(-2.64deg);
+    top: 38cqw;
+    left: 20cqw;
+}
+
+.start-button-first-page {
+    position: absolute;
+    width: 14cqw;
+    top: 44cqw;
+    left: 30cqw;
+    z-index: 10;
+    transform: rotate(-5deg);
+    animation: buttonGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes buttonGlow {
+    from {
+        filter: drop-shadow(0 0 5px rgba(255, 225, 117, 0.5));
+    }
+
+    to {
+        filter:
+            drop-shadow(0 0 12px rgb(255, 185, 45)) drop-shadow(0 0 25px rgba(255, 190, 40, 0.7));
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.about-img {
+    position: absolute;
+    width: 18cqw;
+    height: auto;
+
+    top: -2cqw;
+    left: 81.5cqw;
+    right: auto;
+
+    transform: rotate(1.7deg);
+    z-index: 100;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
