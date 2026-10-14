@@ -1,0 +1,532 @@
+
+/* ===================================== */
+/*                INFO PAGE              */
+/* ===================================== */
+
+.info-page {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    direction: rtl;
+
+    z-index: 10;
+    pointer-events: none;
+}
+
+
+/* ===================================== */
+/*               LARGE BOX               */
+/* ===================================== */
+
+.info-page-box {
+    position: absolute;
+
+    width: 86.4rem;
+    aspect-ratio: 1175 / 1168;
+
+    top: 0;
+    left: 45.5%;
+
+    transform: translateX(-50%);
+
+    z-index: 2;
+}
+
+.info-page-box-img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* ===================================== */
+/*                 TITLES                */
+/* ===================================== */
+
+/* הכותרת הראשית על הפס העליון */
+
+.info-page-title {
+    position: absolute;
+
+    top: 14%;
+    right: 5%;
+
+    width: 47%;
+
+    margin: 0;
+
+    color: #8C6042;
+    font-family: mplusExtraBold, sans-serif;
+
+    font-size: 2.3rem;
+    line-height: 1.2;
+
+    text-align: center;
+    white-space: nowrap;
+
+    z-index: 2;
+}
+
+
+/* ===================================== */
+/*               SUBTITLE                */
+/* ===================================== */
+
+.info-page-subtitle {
+    position: absolute;
+
+    top: 12.8rem;
+    left: 21%;
+
+    width: 39%;
+
+    margin: 0;
+
+    color: #946848;
+    font-family: mplusBold, sans-serif;
+
+    font-size: 1.5rem;
+    line-height: 1.3;
+
+    text-align: center;
+
+    z-index: 2;
+}
+
+
+/* ===================================== */
+/*                QUESTION               */
+/* ===================================== */
+
+.info-page-question {
+    position: absolute;
+
+    top: 24%;
+    right: 5%;
+
+    width: 90%;
+
+    margin: 0;
+
+    color: #FFFFFF;
+    font-family: mplusExtraBold, sans-serif;
+
+    font-size: 2rem;
+    line-height: 1.3;
+
+    text-align: center;
+
+    z-index: 2;
+}
+
+
+.info-page-subtitle-instructions {
+ 
+}
+
+/* ===================================== */
+/*           FLIP INSTRUCTIONS           */
+/* ===================================== */
+
+/* הוראות הלחיצה על הכרטיסיות */
+
+.info-page-instructions {
+    position: absolute;
+
+    top: 30%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 87%;
+
+    margin: 0;
+
+    color: aliceblue;
+    font-family: mplusMedium, sans-serif;
+
+    font-size: 1rem;
+    line-height: 1.15;
+
+    text-align: center;
+    white-space: nowrap;
+
+    z-index: 4;
+}
+
+
+/* ===================================== */
+/*               CARDS GRID              */
+/* ===================================== */
+
+.info-page-cards {
+    position: absolute;
+
+    top: 34%;
+    bottom: 15.5%;
+
+    right: 21%;
+    left: 21%;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+
+    column-gap: 2.25rem;
+    row-gap: 1.26rem;
+
+    z-index: 3;
+}
+
+
+/* ===================================== */
+/*                FLIP CARD              */
+/* ===================================== */
+
+.info-flip-card {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+
+    padding: 0;
+    margin: 0;
+    border: none;
+
+    background: transparent;
+
+    perspective: 100rem;
+
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.info-flip-card-inner {
+    position: relative;
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    transform-style: preserve-3d;
+
+    transition: transform 0.7s ease-in-out;
+}
+
+.info-flip-card.is-flipped .info-flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+
+/* ===================================== */
+/*                CARD SIDES             */
+/* ===================================== */
+
+.info-flip-card-front,
+.info-flip-card-back {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 1.44rem;
+
+    background-color: #F0DBC7;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    overflow: hidden;
+}
+
+.info-flip-card-front {
+    display: block;
+}
+
+.info-flip-card-back {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: space-evenly;
+
+    padding: 0.9rem;
+    gap: 0;
+
+    transform: rotateY(180deg);
+}
+
+
+/* ===================================== */
+/*               CARD CONTENT            */
+/* ===================================== */
+
+.info-card-title {
+    display: block;
+
+    width: 100%;
+
+    color: #896548;
+    font-family: mplusExtraBold, sans-serif;
+
+    font-size: 1.7rem;
+    line-height: 1.2;
+
+    text-align: center;
+}
+
+.info-card-icon {
+    display: block;
+
+    width: 75%;
+    height: 60%;
+
+    object-fit: contain;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* ===================================== */
+/*          ICON SIZE ADJUSTMENTS        */
+/* ===================================== */
+
+/* אש */
+.info-flip-card:nth-child(1) .info-card-icon {
+    transform: scale(1.5);
+}
+
+/* רקב ופטריות */
+.info-flip-card:nth-child(2) .info-card-icon {
+    transform: scale(1.15);
+}
+
+/* חרקים ומכרסמים */
+.info-flip-card:nth-child(3) .info-card-icon {
+    transform: scale(1.55);
+}
+
+/* שמש */
+.info-flip-card:nth-child(4) .info-card-icon {
+    transform: scale(1.05);
+}
+
+
+/* ===================================== */
+/*               CARD HOVER              */
+/* ===================================== */
+
+.info-flip-card:hover {
+    filter: brightness(1.04);
+}
+
+.info-flip-card:focus-visible {
+    outline: 0.3rem solid #FAD25B;
+    outline-offset: 0.3rem;
+
+    border-radius: 1rem;
+}
+
+
+/* ===================================== */
+/*              ZIGI - CARDS             */
+/* ===================================== */
+
+.info-page-zigi {
+    position: absolute;
+
+    width: 41.4rem;
+    height: auto;
+
+    right: 12%;
+    bottom: 9%;
+
+    z-index: 3;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* ===================================== */
+/*                PROGRESS               */
+/* ===================================== */
+
+/* מידע לקורא מסך, ללא הצגה חזותית */
+
+.info-page-progress {
+    position: absolute;
+
+    width: 0.1rem;
+    height: 0.1rem;
+
+    padding: 0;
+    margin: -0.1rem;
+
+    overflow: hidden;
+
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+
+/* ===================================== */
+/*       SHARED TITLE - SCREENS 3-7      */
+/* ===================================== */
+
+.info-page-global-title {
+    position: absolute;
+
+    top: 5%;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: max-content;
+    max-width: 75%;
+
+    margin: 0;
+
+    color: #FFF0C4;
+    font-family: mplusExtraBold, sans-serif;
+
+    font-size: 3rem;
+    line-height: 1.25;
+
+    text-align: center;
+
+    z-index: 5;
+}
+
+
+/* ===================================== */
+/*           SECTION 2 - FLOOR           */
+/* ===================================== */
+
+.info-page-floor-image {
+    position: absolute;
+
+    width: 131.2rem;
+    height: auto;
+
+    max-height: 67.5rem;
+
+    left: 15.68rem;
+    bottom: 0;
+
+    object-fit: contain;
+    object-position: left bottom;
+
+    z-index: 2;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* ===================================== */
+/*              SMALL BOX                */
+/* ===================================== */
+
+.info-page-small-box {
+    position: absolute;
+
+    width: 47.7rem;
+
+    left: 50%;
+    top: 65%;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 3;
+}
+
+.info-page-small-box-image {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    object-fit: contain;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* ===================================== */
+/*             SMALL BOX TEXT            */
+/* ===================================== */
+
+.info-page-small-text {
+    position: absolute;
+
+    top: 19%;
+    bottom: 6%;
+
+    left: 7%;
+    right: 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0;
+
+    color: #FFFFFF;
+    font-family: mplusExtraBold, sans-serif;
+
+    font-size: 1.8rem;
+    line-height: 1.45;
+
+    text-align: center;
+    overflow-wrap: break-word;
+
+    z-index: 2;
+}
+
+
+/* ===================================== */
+/*           MIRRORED SIDE ZIGI          */
+/* ===================================== */
+
+.info-page-small-zigi {
+    position: absolute;
+
+    width: 43.2rem;
+    height: auto;
+
+    left: 19%;
+    bottom: 14%;
+
+    transform: scaleX(-1);
+
+    z-index: 2;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+
+/* ===================================== */
+/*             REDUCED MOTION            */
+/* ===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .info-flip-card-inner {
+        transition: none;
+    }
+}

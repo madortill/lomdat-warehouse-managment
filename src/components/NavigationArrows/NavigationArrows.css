@@ -1,0 +1,122 @@
+/* ===================================== */
+/*          NAVIGATION ARROWS            */
+/* ===================================== */
+
+
+/* ===================================== */
+/*             ARROWS LAYER              */
+/* ===================================== */
+
+.navigation-arrows {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 900;
+
+    pointer-events: none;
+}
+
+
+/* ===================================== */
+/*             SHARED BUTTON             */
+/* ===================================== */
+
+.navigation-arrow {
+    position: absolute;
+
+    bottom: 1.6rem;
+
+    width: 20.8rem;
+    height: auto;
+
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+    pointer-events: auto;
+
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
+}
+
+.navigation-arrow img {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    user-select: none;
+}
+
+
+/* ===================================== */
+/*             ARROW POSITIONS           */
+/* ===================================== */
+
+/* הבא - פינה שמאלית תחתונה */
+.navigation-arrow-next {
+    left: 1.6rem;
+}
+
+/* חזור - פינה ימנית תחתונה */
+.navigation-arrow-back {
+    right: 1.6rem;
+}
+
+
+/* ===================================== */
+/*                 HOVER                 */
+/* ===================================== */
+
+.navigation-arrow:hover:not(:disabled) {
+    transform: scale(1.06);
+
+    filter: drop-shadow(
+        0 0 0.8rem rgba(255, 220, 120, 0.6)
+    );
+}
+
+
+/* ===================================== */
+/*                 ACTIVE                */
+/* ===================================== */
+
+.navigation-arrow:active:not(:disabled) {
+    transform: scale(0.96);
+}
+
+
+/* ===================================== */
+/*                DISABLED               */
+/* ===================================== */
+
+.navigation-arrow:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+
+/* ===================================== */
+/*                 FOCUS                 */
+/* ===================================== */
+
+.navigation-arrow:focus-visible {
+    outline: 0.25rem solid #FAD25B;
+    outline-offset: 0.25rem;
+}
+
+
+/* ===================================== */
+/*             REDUCED MOTION            */
+/* ===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .navigation-arrow {
+        transition: none;
+    }
+}

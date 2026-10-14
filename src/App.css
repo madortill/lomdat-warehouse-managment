@@ -1,101 +1,199 @@
-html,
-body {
-    margin: 0 auto;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    direction: rtl;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    /* חשוב מאוד! */
-    Font-size: calc(10px + 0.5vw);
-    background-image: url("../media/background.png");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    font-family: mplusExtraBold;
-}
+/* ===================================================
+   APP: UNIFORM DESKTOP SCALE, FIXED 16:9 COMPOSITION
+
+   The complete learning screen measures 160rem x 90rem.
+
+   1rem = min(viewport width / 160,
+              viewport height / 90).
+
+   At 1600 x 900: 1rem = 10px.
+   =================================================== */
+
+
+/* ===================================== */
+/*                 FONTS                 */
+/* ===================================== */
 
 @font-face {
     font-family: mplusBold;
-    src: url("../media/fonts/MPLUSRounded1c-Bold.ttf") format("truetype");
+    src: url("../media/fonts/MPLUSRounded1c-Bold.ttf")
+        format("truetype");
     font-style: normal;
+    font-weight: 700;
+    font-display: swap;
 }
 
 @font-face {
     font-family: mplusExtraBold;
-    src: url("../media/fonts/MPLUSRounded1c-ExtraBold.ttf") format("truetype");
+    src: url("../media/fonts/MPLUSRounded1c-ExtraBold.ttf")
+        format("truetype");
     font-style: normal;
+    font-weight: 800;
+    font-display: swap;
 }
 
-.first-page-title {
-    color: #FAD25B;
-    font-size: 6cqw;
+@font-face {
+    font-family: mplusMedium;
+    src: url("../media/fonts/MPLUSRounded1c-Medium.ttf")
+        format("truetype");
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
 }
 
-.first-page-welcome {
-    color: aliceblue;
-}
 
-.titles-div {
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+/* ===================================== */
+/*           GLOBAL SETTINGS             */
+/* ===================================== */
 
-.zigi-first-page {
-    position: absolute;
-    width: 20cqw;
-    transform: rotate(-2.64deg);
-    top: 38cqw;
-    left: 20cqw;
-}
-
-.start-button-first-page {
-    position: absolute;
-    width: 14cqw;
-    top: 44cqw;
-    left: 30cqw;
-    z-index: 10;
-    transform: rotate(-5deg);
-    animation: buttonGlow 1s ease-in-out infinite alternate;
-}
-
-@keyframes buttonGlow {
-    from {
-        filter: drop-shadow(0 0 5px rgba(255, 225, 117, 0.5));
-    }
-
-    to {
-        filter:
-            drop-shadow(0 0 12px rgb(255, 185, 45)) drop-shadow(0 0 25px rgba(255, 190, 40, 0.7));
-    }
-}
-
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    width: 100%;
+    height: 100%;
+
+    /* 1rem = 10px at 1600x900, scaled to fit */
+    font-size: min(0.625vw, 1.111111vh);
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    direction: rtl;
+    text-align: center;
+
+    font-family: mplusExtraBold, sans-serif;
+    font-size: 1.6rem;
+
+    /* שוליים מחוץ למשטח הלומדה */
+    background-color: #202420;
+}
+
+
+/* ===================================== */
+/*                  ROOT                 */
+/* ===================================== */
+
+#root {
+    position: relative;
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    width: 160rem;
+    height: 90rem;
+
+    overflow: hidden;
+    isolation: isolate;
+
+    container-type: inline-size;
+}
+
+
+/* ===================================== */
+/*              BACKGROUND               */
+/* ===================================== */
+
+.page-background {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-image: url("../media/background.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+    filter: blur(0) brightness(1);
+    transition: filter 0.5s ease;
+
+    z-index: 0;
+    pointer-events: none;
+}
+
+.page-background.blurred {
+    filter: blur(0.3rem) brightness(0.5);
+}
+
+
+/* ===================================== */
+/*                 ABOUT                 */
+/* ===================================== */
 
 .about-img {
     position: absolute;
-    width: 18cqw;
+
+    width: 28.8rem;
     height: auto;
 
-    top: -2cqw;
-    left: 81.5cqw;
+    top: -3.2rem;
+    left: 130.4rem;
     right: auto;
 
     transform: rotate(1.7deg);
     z-index: 100;
 }
 
-#root {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+
+/* ===================================== */
+/*                 LOGOS                 */
+/* ===================================== */
+
+.till-logo {
+    position: absolute;
+
+    width: 9.6rem;
+    left: 8.8rem;
+}
+
+.bahad-logo {
+    position: absolute;
+
+    width: 9.6rem;
+    left: -0.8rem;
+}
+
+
+/* ===================================== */
+/*              INSTRUCTIONS             */
+/* ===================================== */
+
+.Instructions-img {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 64rem;
+    height: auto;
+}
+
+
+/* ===================================== */
+/*             REDUCED MOTION            */
+/* ===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .page-background {
+        transition: none;
+    }
 }

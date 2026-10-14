@@ -1,0 +1,115 @@
+/* ===================================== */
+/*               FIRST PAGE              */
+/* ===================================== */
+
+
+/* ===================================== */
+/*                 TITLES                */
+/* ===================================== */
+
+.first-page-title {
+    color: #FAD25B;
+
+    font-family: mplusExtraBold, sans-serif;
+
+    font-size: 7.2rem;
+    line-height: 1.15;
+
+    white-space: nowrap;
+}
+
+.first-page-welcome {
+    color: aliceblue;
+
+    font-family: mplusExtraBold, sans-serif;
+
+    font-size: 2.1rem;
+    line-height: 1.3;
+}
+
+.titles-div {
+    position: absolute;
+
+    top: 42%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 5;
+}
+
+
+/* ===================================== */
+/*           ZIGI - FIRST PAGE           */
+/* ===================================== */
+
+.zigi-first-page {
+    position: absolute;
+
+    width: 32rem;
+    height: auto;
+
+    top: 59%;
+    left: 32rem;
+
+    transform: rotate(-2.64deg);
+
+    z-index: 3;
+}
+
+
+/* ===================================== */
+/*             START BUTTON              */
+/* ===================================== */
+
+.start-button-first-page {
+    position: absolute;
+
+    width: 19rem;
+    height: auto;
+
+    top: 72.5%;
+    left: 48rem;
+
+    z-index: 10;
+
+    transform: rotate(-5deg);
+
+    cursor: pointer;
+
+    animation: buttonGlow 1s ease-in-out infinite alternate;
+}
+
+
+/* ===================================== */
+/*           START BUTTON GLOW           */
+/* ===================================== */
+
+@keyframes buttonGlow {
+    from {
+        filter: drop-shadow(
+            0 0 0.5rem rgba(255, 225, 117, 0.5)
+        );
+    }
+
+    to {
+        filter:
+            drop-shadow(
+                0 0 1.2rem rgb(255, 185, 45)
+            )
+            drop-shadow(
+                0 0 2.5rem rgba(255, 190, 40, 0.7)
+            );
+    }
+}
+
+
+/* ===================================== */
+/*             REDUCED MOTION            */
+/* ===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .start-button-first-page {
+        animation: none;
+    }
+}

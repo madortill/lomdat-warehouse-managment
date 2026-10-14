@@ -1,0 +1,335 @@
+
+/* ===================================== */
+/*          NAVBAR CONTAINER             */
+/* ===================================== */
+
+.learning-navbar {
+    position: absolute;
+    top: -2cqw;
+    right: 1cqw;
+
+    width: min(25cqw, 35vh);
+    z-index: 1000;
+
+    direction: rtl;
+}
+
+
+/* ===================================== */
+/*           CLOSED NAVBAR               */
+/* ===================================== */
+
+.learning-navbar-trigger {
+    position: absolute;
+    top: 2cqw;
+    right: -1cqw;
+
+    width: 45%;
+    padding: 0;
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+    z-index: 2;
+
+    opacity: 1;
+    transform: scale(1);
+
+    transform-origin: top right;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.35s ease;
+}
+
+.learning-navbar-trigger img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.learning-navbar-trigger:hover {
+    filter: drop-shadow(
+        0 0 10px rgba(255, 225, 117, 0.6)
+    );
+}
+
+.learning-navbar.is-open .learning-navbar-trigger {
+    opacity: 0;
+    transform: scale(0.85);
+    pointer-events: none;
+}
+
+
+/* ===================================== */
+/*            OPEN NAVBAR                */
+/* ===================================== */
+
+.learning-navbar-expanded {
+    position: relative;
+    width: 100%;
+
+    opacity: 0;
+    transform: scale(0.7);
+
+    transform-origin: top right;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.learning-navbar.is-open .learning-navbar-expanded {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.learning-navbar-base {
+    display: block;
+    width: 100%;
+    height: auto;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* ===================================== */
+/*             CLOSE BUTTON              */
+/* ===================================== */
+
+.learning-navbar-close {
+    position: absolute;
+    top: 13%;
+    left: 7%;
+
+    width: 2.2cqw;
+    height: 2.2cqw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    border: none;
+
+    color: #866348;
+    font-size: 2cqw;
+    font-weight: bold;
+
+    cursor: pointer;
+    z-index: 5;
+
+    transition: transform 0.2s ease;
+}
+
+.learning-navbar-close:hover {
+    transform: scale(1.15);
+}
+
+
+/* ===================================== */
+/*             TOPICS LIST               */
+/* ===================================== */
+
+.learning-navbar-topics {
+    position: absolute;
+
+    top: 17%;
+    bottom: 6%;
+    right: 11%;
+    left: 13%;
+
+    display: grid;
+    grid-template-rows: repeat(7, minmax(0, 1fr));
+
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+}
+
+.learning-navbar-topics li {
+    min-height: 0;
+    display: flex;
+}
+
+
+/* ===================================== */
+/*               TOPIC ROW               */
+/* ===================================== */
+
+.learning-navbar-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    gap: 0.8cqw;
+    padding: 0.15cqw 0;
+
+    background: transparent;
+    border: none;
+
+    color: #896c58;
+    font-family: mplusBold, Arial, sans-serif;
+
+    font-size: clamp(12px, 1.25cqw, 22px);
+
+    cursor: pointer;
+    text-align: center;
+}
+
+.learning-navbar-label {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 0.1cqw;
+
+    border-bottom: 0.1cqw solid #8d7967;
+
+    line-height: 1.35;
+}
+
+
+/* ===================================== */
+/*              CHECKBOX                 */
+/* ===================================== */
+
+.learning-navbar-check {
+    position: relative;
+    display: flex;
+
+    flex-shrink: 0;
+
+    width: 2.5cqw;
+    height: 2.5cqw;
+
+    border: 0.15cqw solid #987557;
+    border-radius: 0.65cqw;
+
+    background: transparent;
+}
+
+.learning-navbar-check svg {
+    position: absolute;
+    width: 3.1cqw;
+    height: 3.1cqw;
+
+    top: -0.65cqw;
+    left: -0.4cqw;
+
+    overflow: visible;
+}
+
+
+/* ===================================== */
+/*             VISITED TOPIC             */
+/* ===================================== */
+
+.learning-navbar-item.is-visited {
+    color: #777575;
+    cursor: pointer;
+}
+
+.learning-navbar-item.is-visited
+.learning-navbar-check {
+    border-color: #9c9c91;
+}
+
+.learning-navbar-item.is-visited:hover
+.learning-navbar-label {
+    color: #614832;
+}
+
+
+/* ===================================== */
+/*             CURRENT TOPIC             */
+/* ===================================== */
+
+.learning-navbar-item.is-current {
+    color: #8f6045;
+    font-family: mplusExtraBold, Arial, sans-serif;
+
+    cursor: pointer;
+}
+
+.learning-navbar-item.is-current
+.learning-navbar-check {
+    border: 0.23cqw solid #906a4d;
+}
+
+.learning-navbar-item.is-current
+.learning-navbar-label {
+    border-bottom-color: #8f6045;
+}
+
+
+/* ===================================== */
+/*              LOCKED TOPIC             */
+/* ===================================== */
+
+.learning-navbar-item.is-locked {
+    color: #946e53;
+    cursor: default;
+}
+
+.learning-navbar-item.is-locked:hover {
+    transform: none;
+}
+
+
+/* ===================================== */
+/*           SMALL SCREENS               */
+/* ===================================== */
+
+@media (max-width: 700px) {
+
+    .learning-navbar {
+        width: min(76vw, 380px);
+        top: 10px;
+        right: 10px;
+    }
+
+    .learning-navbar-item {
+        font-size: clamp(12px, 2.6vw, 17px);
+        gap: 8px;
+    }
+
+    .learning-navbar-check {
+        width: 23px;
+        height: 23px;
+        border-width: 2px;
+        border-radius: 6px;
+    }
+
+    .learning-navbar-check svg {
+        width: 30px;
+        height: 30px;
+        top: -6px;
+        left: -4px;
+    }
+
+    .learning-navbar-close {
+        width: 28px;
+        height: 28px;
+        font-size: 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .learning-navbar-trigger,
+    .learning-navbar-expanded {
+        transition: none;
+    }
+}
