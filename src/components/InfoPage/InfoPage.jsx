@@ -15,8 +15,10 @@ import sun from "../../../media/InfoPage/sun.svg";
 
 import "./InfoPage.css";
 
+// ====================================
+// תמונות הכרטיסיות
+// ====================================
 
-// התאמה בין מזהה האייקון בקובץ JSON לבין התמונה
 const CARD_IMAGES = {
   fire,
   insects,
@@ -29,26 +31,29 @@ function InfoPage({
   onCardSeen,
   seenCardIds = [],
 }) {
-
   const [flippedCards, setFlippedCards] = useState([]);
 
-  const handleCardClick = (cardId) => {
-    const isFlipped = flippedCards.includes(cardId);
+  // ====================================
+  // טיפול בלחיצה על כרטיסייה
+  // ====================================
+
+  const handleCardClick = (cardIndex) => {
+    const isFlipped = flippedCards.includes(cardIndex);
 
     setFlippedCards((prev) =>
-      prev.includes(cardId)
-        ? prev.filter((id) => id !== cardId)
-        : [...prev, cardId]
+      isFlipped
+        ? prev.filter((index) => index !== cardIndex)
+        : [...prev, cardIndex]
     );
 
+    // הכרטיסייה נספרת רק בחשיפה הראשונה
     if (!isFlipped) {
-      onCardSeen?.(cardId);
+      onCardSeen?.(cardIndex);
     }
   };
 
-
   // ====================================
-  // מסך הכרטיסיות - עמוד 2
+  // עמוד 2 - הכרטיסיות המתהפכות
   // ====================================
 
   if (pageNum === content.flipScreen.page) {
@@ -73,7 +78,7 @@ function InfoPage({
           </p>
 
           <p className="info-page-subtitle-instructions">
-            - לחצו על הכטיסיות כדי ללמוד -
+            - לחצו על הכרטיסיות כדי ללמוד -
           </p>
 
           <h3 className="info-page-question">
@@ -83,7 +88,7 @@ function InfoPage({
           <div className="info-page-cards">
 
             {content.flipScreen.cards.map((card, index) => {
-              const isFlipped = flippedCards.includes(card.id);
+              const isFlipped = flippedCards.includes(index);
 
               return (
                 <button
@@ -92,7 +97,7 @@ function InfoPage({
                   className={`info-flip-card ${
                     isFlipped ? "is-flipped" : ""
                   }`}
-                  onClick={() => handleCardClick(card.id)}
+                  onClick={() => handleCardClick(index)}
                   aria-pressed={isFlipped}
                   aria-label={
                     isFlipped
@@ -129,6 +134,7 @@ function InfoPage({
             })}
 
           </div>
+
         </div>
 
         <img
@@ -147,9 +153,8 @@ function InfoPage({
     );
   }
 
-
   // ====================================
-  // מסך סעיף 2 - רצפה זוהרת
+  // עמוד 3 - מסך הרצפה
   // ====================================
 
   if (pageNum === content.floorScreen.page) {
@@ -174,9 +179,71 @@ function InfoPage({
     );
   }
 
+  // ====================================
+  // עמוד 8 - סידור המחסן ושמירה
+  // על כשירות האפסניה
+  // ====================================
+
+  if (pageNum === content.warehouseOrderScreen.page) {
+    return (
+      <section
+        className="info-page info-page-warehouse-order"
+        dir="rtl"
+      >
+
+        <div className="info-page-box">
+
+          {/* הקופסה הגדולה - כמו בעמוד 2 */}
+          <img
+            className="info-page-box-img"
+            src={largeBox}
+            alt=""
+            draggable="false"
+          />
+
+          {/* הכותרת על הקופסה */}
+          <h2 className="info-page-title info-page-title-wide">
+            {content.warehouseOrderScreen.title}
+          </h2>
+
+          {/* שתי כרטיסיות המידע */}
+          <div className="info-page-order-cards">
+
+            {content.warehouseOrderScreen.cards.map((card) => (
+              <div
+                key={card.number}
+                className="info-page-order-card"
+              >
+
+                <h3 className="info-page-order-card-number">
+                  {card.number}
+                </h3>
+
+                <p className="info-page-order-card-text">
+                  {card.text}
+                </p>
+
+              </div>
+            ))}
+
+          </div>
+
+        </div>
+
+        {/* זיגי - באותו מיקום של עמוד הכרטיסיות */}
+        <img
+          className="info-page-zigi"
+          src={sideZigi}
+          alt="זיגי המלגזה"
+          draggable="false"
+        />
+
+      </section>
+    );
+  }
 
   // ====================================
-  // מסכי סעיפים 3 עד 6
+  // עמודים 4-7 - מסכי המידע
   // ====================================
 
   const currentScreen = content.textScreens.find(

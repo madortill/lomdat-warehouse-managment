@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import tillLogo from "../media/Till-logo.png"
 import bahad6Logo from "../media/bahad-6-logo.png"
 import InstructionsImg from "../media/Instructions.svg"
@@ -9,12 +9,15 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import FirstPage from "./components/FirstPage/FirstPage.jsx";
 import NavigationArrows from "./components/NavigationArrows/NavigationArrows.jsx";
 import InfoPage from "./components/InfoPage/InfoPage.jsx";
+import SupplyTypes from "./components/SupplyTypes/SupplyTypes.jsx";
 
 function App() {
   const [pageNum, setPageNum] = useState(0);
   const [maxPageReached, setMaxPageReached] = useState(0);
   const [seenInfoCards, setSeenInfoCards] = useState([]);
   const infoPageCompleted = seenInfoCards.length === 4;
+  // שלבי SupplyTypes שכבר הושלמו
+  const [completedSupplySteps, setCompletedSupplySteps] = useState([]);
   const TOPICS = [
     { page: 2, title: "עקרונות ומטרות אחסנה" },
     { page: 3, title: "סידור המחסן ושמירה על כשירות האפסניה" },
@@ -25,19 +28,24 @@ function App() {
     { page: 8, title: "אחסנת אפסניה בשטח פתוח" },
   ];
 
-const toNextPage = () => {
-  setPageNum((prev) => {
-
-    // אי אפשר לעבור את מסך הכרטיסיות
-    // לפני שכל ארבע הכרטיסיות נחשפו
-    if (prev === 2 && !infoPageCompleted) {
-      return prev;
-    }
-
-    // כרגע העמוד האחרון שבנינו הוא 7
-    return Math.min(prev + 1, 7);
-  });
-};
+  const toNextPage = () => {
+    setPageNum((prev) => {
+      // עמוד 2 - חובה לחשוף את כל הכרטיסיות
+      if (prev === 2 && !infoPageCompleted) {
+        return prev;
+      }
+      // עמודים 9-17 - חובה לפתוח את הקופסה הפעילה
+      if (
+        prev >= 9 &&
+        prev <= 17 &&
+        !completedSupplySteps.includes(prev - 9)
+      ) {
+        return prev;
+      }
+      // עמוד 17 הוא האחרון כרגע
+      return Math.min(prev + 1, 17);
+    });
+  };
 
   const toPrevPage = () => {
     setPageNum(prev => Math.max(0, prev - 1));
@@ -69,6 +77,45 @@ const toNextPage = () => {
     });
   };
 
+  useEffect(() => {
+    const preventImageDrag = (event) => {
+      if (event.target instanceof HTMLImageElement) {
+        event.preventDefault();
+      }
+    };
+
+    document.addEventListener("dragstart", preventImageDrag);
+
+    return () => {
+      document.removeEventListener("dragstart", preventImageDrag);
+    };
+  }, []);
+
+  // מקבלת עדכון כשהמשתמש פתח את הקופסה הפעילה
+  const handleSupplyStepComplete = useCallback((isComplete) => {
+    if (!isComplete || pageNum < 9 || pageNum > 17) {
+      return;
+    }
+
+    const stepIndex = pageNum - 9;
+
+    setCompletedSupplySteps((prev) => {
+      if (prev.includes(stepIndex)) {
+        return prev;
+      }
+
+      return [...prev, stepIndex];
+    });
+  }, [pageNum]);
+
+  const canGoNext =
+    pageNum < 17 &&
+    (pageNum !== 2 || infoPageCompleted) &&
+    (
+      pageNum < 9 ||
+      completedSupplySteps.includes(pageNum - 9)
+    );
+
   return (
     <>
       <div className={`page-background ${pageNum === 1 ? "blurred" : ""}`} />
@@ -87,6 +134,7 @@ const toNextPage = () => {
         <NavigationArrows
           onNext={toNextPage}
           onBack={toPrevPage}
+          canGoNext={canGoNext}
         />
       )}
 
@@ -99,13 +147,21 @@ const toNextPage = () => {
         />
       )}
 
-      {pageNum >= 2 && pageNum <= 7 && (
-  <InfoPage
-    pageNum={pageNum}
-    onCardSeen={handleInfoCardSeen}
-    seenCardIds={seenInfoCards}
-  />
-)}
+      {pageNum >= 2 && pageNum <= 8 && (
+        <InfoPage
+          pageNum={pageNum}
+          onCardSeen={handleInfoCardSeen}
+          seenCardIds={seenInfoCards}
+        />
+      )}
+
+      {/* מסכי SupplyTypes - עמודים 9 עד 17 */}
+      {pageNum >= 9 && pageNum <= 17 && (
+        <SupplyTypes
+          step={pageNum - 9}
+          onStepComplete={handleSupplyStepComplete}
+        />
+      )}
     </>
   );
 }

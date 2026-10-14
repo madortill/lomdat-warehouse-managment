@@ -24,6 +24,15 @@
 }
 
 @font-face {
+    font-family: OHItayMaor;
+    src: url("../media/fonts/OHItayMaor-Regular.ttf")
+        format("truetype");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+}
+
+@font-face {
     font-family: mplusExtraBold;
     src: url("../media/fonts/MPLUSRounded1c-ExtraBold.ttf")
         format("truetype");
@@ -125,7 +134,7 @@ body {
     transition: filter 0.5s ease;
 
     z-index: 0;
-    pointer-events: none;
+
 }
 
 .page-background.blurred {
@@ -196,4 +205,22 @@ body {
     .page-background {
         transition: none;
     }
+}
+
+/* מניעת גרירה וסימון של תמונות */
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* צבע סימון טקסט בכל הלומדה */
+::selection {
+  background-color: #FFE66D;
+  color: #222222;
+}
+
+::-moz-selection {
+  background-color: #FFE66D;
+  color: #222222;
 }
