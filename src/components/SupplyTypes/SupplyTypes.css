@@ -1,256 +1,609 @@
+
+/* ===================================== */
+/*             SUPPLY TYPES              */
+/* ===================================== */
+
 /*
- * SupplyTypes is sized within the existing #root (160rem x 90rem, 16:9).
- * All coordinates are stage-relative, so the visual layout scales together.
- * This component intentionally does NOT draw Next/Back or Navbar.
- */
+  הקומפוננטה מוצגת בתוך משטח הלומדה:
+  160rem x 90rem
+
+  כל המיקומים מוגדרים ביחס למשטח,
+  ולכן נשמרת התאמה למסכי 16:9.
+*/
 
 .supply-types {
   position: absolute;
   inset: 0;
+
   width: 100%;
   height: 100%;
+
   direction: rtl;
   isolation: isolate;
+
   z-index: 8;
   overflow: hidden;
+
   font-family: mplusBold, Arial, sans-serif;
 }
+
+
+/* ===================================== */
+/*               BACKGROUND              */
+/* ===================================== */
 
 .supply-types-background {
   position: absolute;
   inset: 0;
+
+  width: 100%;
+  height: 100%;
+
   z-index: 0;
-  pointer-events: none;
+
   background-image: url("../../../media/SupplyTypes/typesBackground.png");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
+
+  pointer-events: none;
 }
+
+
+/* ===================================== */
+/*                 TITLE                 */
+/* ===================================== */
 
 .supply-types-heading {
   position: absolute;
-  top: 1.0%;
-  left: 50%;
+  top: 1%;
+  left: 59%;
   transform: translateX(-50%);
   width: max-content;
   max-width: 66%;
   margin: 0;
   z-index: 2;
-  color: #fff1c2;
+  color: #FFF1C2;
   font-family: mplusExtraBold, Arial, sans-serif;
   font-size: 3.3rem;
   line-height: 1.3;
-  text-shadow: 0 0.22rem 0.8rem rgba(28, 17, 5, .62);
   text-align: center;
+  text-shadow:
+    0 0.22rem 0.8rem rgba(28, 17, 5, 0.62);
   pointer-events: none;
 }
+
+.supply-types-subheading {
+  position: absolute;
+  top: 6%;
+  left: 59%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 66%;
+  margin: 0;
+  z-index: 2;
+  color: #FFF1C2;
+  font-family: mplusBold, Arial, sans-serif;
+  font-size: 2rem;
+  line-height: 1.3;
+  text-align: center;
+  text-shadow:
+    0 0.22rem 0.8rem rgba(28, 17, 5, 0.62);
+  pointer-events: none;
+}
+
+/* ===================================== */
+/*                 SHELF                 */
+/* ===================================== */
 
 .supply-types-shelf {
   position: absolute;
   inset: 0;
+
+  width: 100%;
+  height: 100%;
+
   z-index: 5;
+
   pointer-events: none;
 }
 
-/* Each button only intercepts clicks over its own image rectangle. */
+
+/* ===================================== */
+/*                  BOX                  */
+/* ===================================== */
+
 .supply-types-box {
   position: absolute;
+
   display: block;
+
   height: auto;
+
   padding: 0;
-  border: 0;
-  border-radius: .7rem;
+  margin: 0;
+
+  border: none;
+  border-radius: 0.7rem;
+
   background: transparent;
+
   cursor: pointer;
   pointer-events: auto;
+
   transform-origin: 50% 65%;
-  transition: transform .22s ease, filter .22s ease;
-  animation: supply-types-appear .38s both ease-out;
+
+  transition:
+    transform 0.22s ease,
+    filter 0.22s ease;
+
+  animation:
+    supply-types-appear 0.38s ease-out both;
+
   -webkit-tap-highlight-color: transparent;
 }
 
+
+/* ===================================== */
+/*               BOX IMAGE               */
+/* ===================================== */
+
 .supply-types-box img {
   display: block;
+
   width: 100%;
   height: auto;
-  -webkit-user-drag: none;
+
+  object-fit: contain;
+
+  pointer-events: none;
+
   user-select: none;
   -webkit-user-select: none;
-  pointer-events: none;
+  -webkit-user-drag: none;
 }
+
+
+/* ===================================== */
+/*                BOX HOVER              */
+/* ===================================== */
 
 .supply-types-box:hover {
-  transform: translateY(-.45rem) scale(1.035);
+  transform:
+    translateY(-0.45rem)
+    scale(1.035);
 }
+
+
+/* ===================================== */
+/*               BOX FOCUS               */
+/* ===================================== */
 
 .supply-types-box:focus-visible {
-  outline: .3rem solid #fff1c2;
-  outline-offset: .3rem;
+  outline: 0.3rem solid #FFF1C2;
+  outline-offset: 0.3rem;
 }
 
-/* Only the new/current box pulses, and stops once its explanation is open. */
-.supply-types-box.is-glowing {
-  animation: supply-types-appear .35s ease-out, supply-types-glow 1.8s ease-in-out .4s infinite;
-}
 
-.supply-types-box--stack { z-index: 4; }
+/* ===================================== */
+/*                BOX GLOW               */
+/* ===================================== */
 
 /*
- * Bubble SVGs are NOT solid rectangles:
- * - top-pointer variants: the opaque rectangle begins 30-36 SVG units
- *   below the top; the top area is transparent except for the pointer.
- * - side-right variant: the opaque rectangle ends at x=784/824 and its
- *   triangular pointer occupies the right 5%.
- * Keep shape pointer-events:none so its transparent parts never cover boxes.
- */
+  רק הקופסה הפעילה זוהרת.
+
+  כשהמשתמש פותח את ההסבר שלה,
+  הזוהר מפסיק.
+*/
+
+.supply-types-box.is-glowing img {
+  animation:
+    supply-types-glow
+    1.8s ease-in-out infinite;
+}
+
+
+/* ===================================== */
+/*              STACK IMAGE              */
+/* ===================================== */
+
+.supply-types-box--stack {
+  z-index: 4;
+}
+
+
+/* ===================================== */
+/*             SPEECH BUBBLE             */
+/* ===================================== */
+
+/*
+  הבועה היא DIV רגיל ולא תמונת SVG.
+
+  width: max-content
+  מאפשר התאמה לאורך הטקסט.
+
+  max-width נקבע מתוך SupplyTypes.jsx
+  ומונע מהבועה להתרחב יותר מדי.
+
+  אין גובה קבוע - הגובה מותאם לתוכן.
+*/
+
 .supply-types-bubble {
   position: absolute;
-  z-index: 10;
-  height: auto;
-  pointer-events: none;
-  animation: supply-types-bubble-in .27s ease-out both;
-}
 
-.supply-types-bubble-shape {
   display: block;
-  width: 100%;
+
+  width: max-content;
+  min-width: 0;
   height: auto;
+
+  box-sizing: border-box;
+
+  padding: 1.6rem 2.4rem;
+
+  background-color: #FFF1C2;
+
+  border: none;
+  border-radius: 1.1rem;
+
+  box-shadow:
+    0 0.35rem 0.7rem rgba(47, 30, 13, 0.17),
+    0 0.15rem 0.25rem rgba(47, 30, 13, 0.10);
+
+  z-index: 10;
+
+  /*
+    הבועה עצמה לא חוסמת לחיצות
+    על קופסאות שנמצאות מאחוריה.
+  */
   pointer-events: none;
-  -webkit-user-drag: none;
-  user-select: none;
+
+  animation:
+    supply-types-bubble-in
+    0.27s ease-out both;
 }
 
-.supply-types-bubble-inner {
+
+/* ===================================== */
+/*         TOP SPEECH BUBBLE TAIL        */
+/* ===================================== */
+
+/*
+  חוד קטן בראש הבועה, שמצביע
+  לכיוון הקופסה שמעליה.
+
+  גם החוד נוצר באמצעות CSS.
+*/
+
+.supply-types-bubble--top::after {
+  content: "";
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: -1.35rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 1.4rem solid transparent;
+  border-right: 1.4rem solid transparent;
+  border-bottom: 1.5rem solid #FFF1C2;
   pointer-events: none;
-  text-align: center;
 }
 
-/* SVG short bubbles: rectangle begins at y=30/188 or 36/142. */
-.supply-types-bubble--short .supply-types-bubble-inner {
-  top: 30%;
-  bottom: 4%;
-  left: 5%;
-  right: 5%;
+
+/* ===================================== */
+/*         SIDE SPEECH BUBBLE TAIL       */
+/* ===================================== */
+
+/*
+  בבועת ערמת הקופסאות החוד
+  מופיע בצד ימין.
+*/
+
+.supply-types-bubble--side::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  right: -1.35rem;
+
+  transform: translateY(-50%);
+
+  width: 0;
+  height: 0;
+
+  border-top: 1.4rem solid transparent;
+  border-bottom: 1.4rem solid transparent;
+  border-left: 1.5rem solid #FFF1C2;
+
+  pointer-events: none;
 }
 
-/* SVG tall bubbles: rectangle begins at y=36/245. */
-.supply-types-bubble--tall .supply-types-bubble-inner {
-  top: 17%;
-  bottom: 4%;
-  left: 6%;
-  right: 6%;
-}
 
-/* side-right-bubble.svg: arrow is to the right of the rectangle. */
-.supply-types-bubble--side .supply-types-bubble-inner {
-  top: 6%;
-  bottom: 6%;
-  left: 4%;
-  right: 9%;
-}
+/* ===================================== */
+/*              BUBBLE TEXT              */
+/* ===================================== */
+
+/*
+  כאן משנים את גודל הטקסט
+  בכל בועות ההסבר.
+*/
 
 .supply-types-bubble-text {
-  display: inline-block;
-  width: max-content;
+  display: block;
+
+  width: auto;
   max-width: 100%;
+
+  margin: 0;
+
   color: #695039;
-  font-family: mplusBold, Arial, sans-serif;
-  font-size: 1.65rem;
-  line-height: 1.48;
+
+  font-family: mplusMedium, Arial, sans-serif;
+
+  font-size: 2.1rem;
+  line-height: 1.5;
+
   text-align: center;
+
   white-space: normal;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+
   user-select: text;
   -webkit-user-select: text;
+
   pointer-events: auto;
+  cursor: text;
 }
 
-.supply-types-bubble--short .supply-types-bubble-text { font-size: 1.62rem; }
-.supply-types-bubble--tall .supply-types-bubble-text { font-size: 1.85rem; }
-.supply-types-bubble--side .supply-types-bubble-text { font-size: 1.9rem; }
+
+/* ===================================== */
+/*             BOLD TEXT                 */
+/* ===================================== */
+
+/*
+  ההדגשות מגיעות מקובץ ה-JSON.
+*/
 
 .supply-types-bubble-text strong {
   font-family: mplusExtraBold, Arial, sans-serif;
+
   font-weight: 800;
+  color: #63442B;
 }
+
+
+/* ===================================== */
+/*          TEXT SELECTION COLOR         */
+/* ===================================== */
 
 .supply-types-bubble-text::selection,
 .supply-types-bubble-text strong::selection {
-  background: #ffe66d;
-  color: #222;
+  background-color: #FFE66D;
+  color: #222222;
 }
 
-/* Vertical measurement arrows: actual supplied SVG images, never stretched. */
+.supply-types-bubble-text::-moz-selection,
+.supply-types-bubble-text strong::-moz-selection {
+  background-color: #FFE66D;
+  color: #222222;
+}
+
+
+/* ===================================== */
+/*             MEASURE ARROWS            */
+/* ===================================== */
+
+/*
+  חצי המדידה נשארים בדיוק
+  כפי שהיו - מקובצי ה-SVG.
+*/
+
 .supply-types-measure {
   position: absolute;
+
   z-index: 11;
-  pointer-events: none;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  pointer-events: none;
 }
+
+
+/* ===================================== */
+/*           MEASURE ARROW IMAGE         */
+/* ===================================== */
 
 .supply-types-measure img {
   display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: contain;
+
   pointer-events: none;
+
   user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
 }
+
+
+/* ===================================== */
+/*             MEASURE TEXT              */
+/* ===================================== */
 
 .supply-types-measure span {
   position: absolute;
+
   top: 50%;
   left: 88%;
+
   transform: translateY(-50%);
+
   writing-mode: vertical-rl;
-  color: #fff5ba;
+
+  color: #FFF5BA;
+
   font-family: mplusExtraBold, Arial, sans-serif;
+
   font-size: 1.45rem;
-  text-shadow: 0 0 .5rem rgba(0,0,0,.85);
+
+  text-shadow:
+    0 0 0.5rem rgba(0, 0, 0, 0.85);
+
   white-space: nowrap;
 }
 
+
+/* ===================================== */
+/*             HEAT MEASURE              */
+/* ===================================== */
+
 .supply-types-measure--heat {
-  left: 73.2%;
-  top: 9.5%;
+  left: 67.2%;
+  top: 8.4%;
+
   width: 3.8%;
   height: 16.5%;
 }
 
+
+/* ===================================== */
+/*             STACK MEASURE             */
+/* ===================================== */
+
 .supply-types-measure--stack {
-  left: 73.1%;
+  left: 77.1%;
   top: 47%;
+
   width: 4%;
   height: 41%;
 }
 
+
+/* ===================================== */
+/*             ANIMATIONS                */
+/* ===================================== */
+
+/* הופעת קופסה חדשה */
+
 @keyframes supply-types-appear {
-  from { opacity: 0; transform: scale(.94); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
+
+
+/* הופעת בועת הסבר */
 
 @keyframes supply-types-bubble-in {
-  from { opacity: 0; transform: translateY(.6rem); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+
+    transform: translateY(0.6rem);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
 }
+
+
+/* זוהר עדין סביב הקופסה */
 
 @keyframes supply-types-glow {
-  0%, 100% { filter: drop-shadow(0 0 .3rem rgba(255, 224, 109, .25)); }
-  50% { filter: drop-shadow(0 0 1.5rem #ffe6a1) drop-shadow(0 0 2.3rem rgba(255, 211, 67, .65)); }
+  0%,
+  100% {
+    filter:
+      drop-shadow(
+        0 0 0.3rem rgba(255, 224, 109, 0.25)
+      );
+  }
+
+  50% {
+    filter:
+      drop-shadow(
+        0 0 1.5rem #FFE6A1
+      )
+      drop-shadow(
+        0 0 2.3rem rgba(255, 211, 67, 0.65)
+      );
+  }
 }
+
+
+/* ===================================== */
+/*             REDUCED MOTION            */
+/* ===================================== */
 
 @media (prefers-reduced-motion: reduce) {
-  .supply-types-box, .supply-types-bubble { animation: none; transition: none; }
+  .supply-types-box,
+  .supply-types-bubble,
+  .supply-types-box.is-glowing img {
+    animation: none;
+    transition: none;
+  }
 }
 
-/* Keep the two existing App logos above this full-screen scene. */
+
+/* ===================================== */
+/*                LOGOS                  */
+/* ===================================== */
+
+/*
+  הלוגואים הקיימים ב-App.jsx
+  נשארים מעל הרקע של הקומפוננטה.
+*/
+
 #root > .till-logo,
 #root > .bahad-logo {
   z-index: 20;
+}
+
+
+/* ===================================== */
+/*        PREVIOUS BOXES - DARKER        */
+/* ===================================== */
+
+/* קופסאות משלבים קודמים */
+.supply-types-box:not(.is-current) img {
+  filter: brightness(0.80);
+}
+
+/* הבהרה קלה במעבר עכבר */
+.supply-types-box:not(.is-current):hover img {
+  filter: brightness(0.95);
+}
+
+/* הצ'ופצ'יק של בועת התנועה - בצד שמאל */
+
+.supply-types-bubble--side-left::after {
+  content: "";
+  position: absolute;
+
+  top: 50%;
+  left: -1.35rem;
+
+  transform: translateY(-50%);
+
+  width: 0;
+  height: 0;
+
+  border-top: 1.4rem solid transparent;
+  border-bottom: 1.4rem solid transparent;
+  border-right: 1.5rem solid #FFF1C2;
+
+  pointer-events: none;
 }

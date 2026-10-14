@@ -1,3 +1,4 @@
+
 import { useEffect, useMemo, useState } from "react";
 import supplyTypesData from "../../../data/SupplyTypesData.json";
 
@@ -11,16 +12,14 @@ import safetyBox from "../../../media/SupplyTypes/safety-box.png";
 import moveBox from "../../../media/SupplyTypes/move-box.png";
 import sixSupply from "../../../media/SupplyTypes/six-supply.svg";
 
-import leftBubble from "../../../media/SupplyTypes/leftBubble.svg";
-import middleLargeBubble from "../../../media/SupplyTypes/middle-large-bubble.svg";
-import rightLargeBubble from "../../../media/SupplyTypes/right-large-bubble.svg";
-import smallRightBubble from "../../../media/SupplyTypes/small-right-bubble.svg";
-import largeLeftBubble from "../../../media/SupplyTypes/large-left-bubble.svg";
-import sideRightBubble from "../../../media/SupplyTypes/side-right-bubble.svg";
 import largeArrow from "../../../media/SupplyTypes/large-arrow.svg";
 import smallArrow from "../../../media/SupplyTypes/small-arrow.svg";
 
 import "./SupplyTypes.css";
+
+// ====================================
+// תמונות הקופסאות
+// ====================================
 
 const IMAGES = {
   pressure: pressureBox,
@@ -34,131 +33,317 @@ const IMAGES = {
   stack: sixSupply,
 };
 
-/*
-  Coordinates are percentages of the 160rem x 90rem learning stage.
-  left/top are the TOP-LEFT of the image box. Adjust here to match Figma.
-  Bubble coordinates are separate so they can be tweaked independently.
+// ====================================
+// מיקומי הקופסאות ובועות ההסבר
+// כל המספרים באחוזים מתוך מסך הלומדה
+//
+// box:
+// left - מיקום אופקי
+// top - מיקום אנכי
+// width - רוחב הקופסה
+//
+// bubble:
+// left - מיקום אופקי
+// top - מיקום אנכי
+// maxWidth - רוחב מרבי של בועת ההסבר
+// side - האם חוד הבועה מופיע בצד
+// ====================================
 
-  Important: bubble SVGs include transparent space above the rectangular
-  body (for the triangular pointer). CSS places text below that space.
-*/
 const PLACEMENTS = {
   pressure: {
-    box: { left: 45.0, top: 68.5, width: 13.0 },
-    bubble: { left: 42.0, top: 84.0, width: 43.0, image: leftBubble, kind: "short" },
+    box: {
+      left: 45.0,
+      top: 68.5,
+      width: 13.0,
+    },
+    bubble: {
+      left: 36.0,
+      top: 87.5,
+      maxWidth: 43.0,
+    },
   },
+
   heat: {
-    box: { left: 62.5, top: 25.0, width: 13.0 },
-    bubble: { left: 45.0, top: 52.7, width: 44.0, image: middleLargeBubble, kind: "tall" },
+    box: {
+      left: 62.5,
+      top: 23.2,
+      width: 13.0,
+    },
+    bubble: {
+      left: 47.0,
+      top: 41.7,
+      maxWidth: 44.0,
+    },
   },
+
   light: {
-    box: { left: 81.0, top: 47.1, width: 13.0 },
-    bubble: { left: 61.0, top: 65.3, width: 36.0, image: smallRightBubble, kind: "short" },
+    box: {
+      left: 81.0,
+      top: 43.5,
+      width: 13.0,
+    },
+    bubble: {
+      left: 44.0,
+      top: 47.3,
+      maxWidth: 36.0,
+      side: true,
+    },
   },
+
   filtration: {
-    box: { left: 26.3, top: 47.1, width: 13.0 },
-    bubble: { left: 8.0, top: 64.0, width: 43.0, image: middleLargeBubble, kind: "tall" },
+    box: {
+      left: 26.3,
+      top: 44.1,
+      width: 13.0,
+    },
+    bubble: {
+      left: 11.0,
+      top: 62.5,
+      maxWidth: 43.0,
+    },
   },
+
   toxic: {
-    box: { left: 26.3, top: 25.0, width: 13.0 },
-    bubble: { left: 5.0, top: 46.3, width: 44.0, image: leftBubble, kind: "short" },
+    box: {
+      left: 26.3,
+      top: 23.6,
+      width: 13.0,
+    },
+    bubble: {
+      left: 10.5,
+      top: 41.7,
+      maxWidth: 44.0,
+    },
   },
+
   pests: {
-    box: { left: 62.5, top: 47.1, width: 13.0 },
-    bubble: { left: 46.5, top: 64.2, width: 48.0, image: middleLargeBubble, kind: "tall" },
+    box: {
+      left: 62.5,
+      top: 44.1,
+      width: 13.0,
+    },
+    bubble: {
+      left: 44.8,
+      top: 62.5,
+      maxWidth: 48.0,
+    },
   },
+
   safety: {
-    box: { left: 62.5, top: 68.5, width: 13.0 },
-    bubble: { left: 33.0, top: 74.7, width: 38.0, image: rightLargeBubble, kind: "tall" },
+    box: {
+      left: 62.5,
+      top: 69.3,
+      width: 13.0,
+    },
+    bubble: {
+      left: 52.0,
+      top: 87.8,
+      maxWidth: 38.0,
+    },
   },
+
   move: {
-    box: { left: 26.3, top: 68.5, width: 13.0 },
-    bubble: { left: 28.0, top: 74.5, width: 45.0, image: largeLeftBubble, kind: "short" },
+    box: {
+      left: 26.3,
+      top: 68.5,
+      width: 13.0,
+    },
+    bubble: {
+      left: 40.0,
+      top: 72.5,
+      maxWidth: 45.0,
+      sideLeft: true,
+    },
   },
+
   stack: {
-    box: { left: 39.6, top: 57.3, width: 25.5 },
-    bubble: { left: 4.7, top: 55.0, width: 42.0, image: sideRightBubble, kind: "side" },
+    box: {
+      left: 52,
+      top: 55.3,
+      width: 25.5,
+    },
+    bubble: {
+      left: 17.2,
+      top: 57.0,
+      maxWidth: 42.0,
+      side: true,
+    },
   },
 };
 
-// Highlight only the exact approved phrases; no HTML injection.
+// ====================================
+// הדגשת ביטויים מתוך קובץ ה-JSON
+// ====================================
+
 function renderHighlightedText(text, highlights = []) {
   const matches = highlights
-    .map((phrase) => ({ phrase, index: text.indexOf(phrase) }))
+    .map((phrase) => ({
+      phrase,
+      index: text.indexOf(phrase),
+    }))
     .filter(({ index }) => index >= 0)
     .sort((a, b) => a.index - b.index);
 
-  if (!matches.length) return text;
+  if (!matches.length) {
+    return text;
+  }
 
   const parts = [];
   let cursor = 0;
+
   for (const { phrase, index } of matches) {
     if (index < cursor) continue;
-    if (index > cursor) parts.push(text.slice(cursor, index));
-    parts.push(<strong key={`${index}-${phrase}`}>{phrase}</strong>);
+
+    if (index > cursor) {
+      parts.push(text.slice(cursor, index));
+    }
+
+    parts.push(
+      <strong key={`${index}-${phrase}`}>
+        {phrase}
+      </strong>
+    );
+
     cursor = index + phrase.length;
   }
-  if (cursor < text.length) parts.push(text.slice(cursor));
+
+  if (cursor < text.length) {
+    parts.push(text.slice(cursor));
+  }
+
   return parts;
 }
 
-/**
- * SupplyTypes - one stage at a time; NO navigation controls inside.
- *
- * Props:
- *   step: 0..8 (0=pressure, 8=height/stack)
- *   onStepComplete: (isComplete:boolean) => void
- *
- * Parent may use onStepComplete to enable its Next arrow in the future.
- * Previous boxes remain clickable. Backward stage changes close the bubble.
- */
+// ====================================
+// SupplyTypes
+//
+// step: מספר השלב הנוכחי (0 עד 8)
+// onStepComplete: עדכון כשנפתחה הקופסה
+// הפעילה
+// ====================================
+
 function SupplyTypes({ step = 0, onStepComplete }) {
   const lastStep = supplyTypesData.items.length - 1;
-  const activeStep = Math.min(lastStep, Math.max(0, Number(step) || 0));
+
+  const activeStep = Math.min(
+    lastStep,
+    Math.max(0, Number(step) || 0)
+  );
+
   const currentItem = supplyTypesData.items[activeStep];
 
   const [seenIds, setSeenIds] = useState([]);
   const [openBubble, setOpenBubble] = useState(null);
 
-  // Prevent a previous stage's bubble from flashing on the next stage.
-  const visibleBubble = openBubble?.step === activeStep ? openBubble.id : null;
+  // ====================================
+  // הצגת הבועה רק בשלב הנוכחי
+  // ====================================
 
+  const visibleBubble =
+    openBubble?.step === activeStep
+      ? openBubble.id
+      : null;
+
+  // כשעוברים שלב, הבועה נסגרת
   useEffect(() => {
     setOpenBubble(null);
   }, [activeStep]);
 
-  const isCurrentStepComplete = seenIds.includes(currentItem.id);
+  // ====================================
+  // בדיקה אם הקופסה הפעילה כבר נפתחה
+  // ====================================
+
+  const isCurrentStepComplete = seenIds.includes(
+    currentItem.id
+  );
 
   useEffect(() => {
     onStepComplete?.(isCurrentStepComplete);
   }, [isCurrentStepComplete, onStepComplete]);
 
+  // ====================================
+  // כל הקופסאות שצריכות להיות מוצגות
+  // ====================================
+
   const visibleItems = useMemo(
-    () => supplyTypesData.items.slice(0, activeStep + 1),
+    () => supplyTypesData.items.slice(
+      0,
+      activeStep + 1
+    ),
     [activeStep]
   );
 
-  const selectedItem = visibleItems.find((item) => item.id === visibleBubble);
+  // ====================================
+  // תוכן בועת הדיבור הפתוחה
+  // ====================================
+
+  const selectedItem = visibleItems.find(
+    (item) => item.id === visibleBubble
+  );
+
+  // ====================================
+  // לחיצה על קופסה
+  // ====================================
 
   const handleBoxClick = (item) => {
-    setOpenBubble({ step: activeStep, id: item.id });
+    setOpenBubble({
+      step: activeStep,
+      id: item.id,
+    });
+
+    // שומרים שהקופסה הפעילה נפתחה
     if (item.id === currentItem.id) {
       setSeenIds((prev) =>
-        prev.includes(item.id) ? prev : [...prev, item.id]
+        prev.includes(item.id)
+          ? prev
+          : [...prev, item.id]
       );
     }
   };
 
-  return (
-    <section className="supply-types" dir="rtl" aria-label={supplyTypesData.title}>
-      <div className="supply-types-background" aria-hidden="true" />
-      <h2 className="supply-types-heading">{supplyTypesData.title}</h2>
+  // ====================================
+  // תצוגה
+  // ====================================
 
-      <div className="supply-types-shelf" aria-label="סוגי אפסניה במחסן">
+  return (
+    <section
+      className="supply-types"
+      dir="rtl"
+      aria-label={supplyTypesData.title}
+    >
+
+      {/* רקע המדפים */}
+      <div
+        className="supply-types-background"
+        aria-hidden="true"
+      />
+
+      {/* כותרת המסך */}
+      <h2 className="supply-types-heading">
+        {supplyTypesData.title}
+      </h2>
+
+      <h2 className="supply-types-subheading">
+        - לחצו על הקופסאות כדי ללמוד, תוכלו לחזור אליהן בלחיצה -
+      </h2>
+
+      {/* ====================================
+          הקופסאות שעל המדפים
+      ==================================== */}
+
+      <div
+        className="supply-types-shelf"
+        aria-label="סוגי אפסניה במחסן"
+      >
+
         {visibleItems.map((item) => {
           const position = PLACEMENTS[item.id].box;
-          const isActive = item.id === currentItem.id;
-          const isGlowing = isActive && visibleBubble !== item.id;
+
+          const isActive =
+            item.id === currentItem.id;
+
+          const isGlowing =
+            isActive && !isCurrentStepComplete;
 
           return (
             <button
@@ -169,7 +354,9 @@ function SupplyTypes({ step = 0, onStepComplete }) {
                 `supply-types-box--${item.id}`,
                 isActive ? "is-current" : "",
                 isGlowing ? "is-glowing" : "",
-              ].filter(Boolean).join(" ")}
+              ]
+                .filter(Boolean)
+                .join(" ")}
               style={{
                 left: `${position.left}%`,
                 top: `${position.top}%`,
@@ -177,57 +364,106 @@ function SupplyTypes({ step = 0, onStepComplete }) {
               }}
               onClick={() => handleBoxClick(item)}
               aria-label={`פתיחת הסבר: ${item.label}`}
-              aria-expanded={visibleBubble === item.id}
+              aria-expanded={
+                visibleBubble === item.id
+              }
             >
-              <img src={IMAGES[item.id]} alt="" draggable="false" />
+              <img
+                src={IMAGES[item.id]}
+                alt=""
+                draggable="false"
+              />
             </button>
           );
         })}
+
       </div>
 
+      {/* ====================================
+          בועת הסבר שנבנית מ-DIV
+          ללא תמונת SVG
+      ==================================== */}
+
       {selectedItem && (() => {
-        const bubble = PLACEMENTS[selectedItem.id].bubble;
+        const bubble = PLACEMENTS[
+          selectedItem.id
+        ].bubble;
+
         return (
           <div
             key={`${activeStep}-${selectedItem.id}`}
-            className={`supply-types-bubble supply-types-bubble--${bubble.kind}`}
+            className={[
+              "supply-types-bubble",
+              bubble.sideLeft
+                ? "supply-types-bubble--side-left"
+                : bubble.side
+                  ? "supply-types-bubble--side"
+                  : "supply-types-bubble--top",
+            ].join(" ")}
             style={{
               left: `${bubble.left}%`,
               top: `${bubble.top}%`,
-              width: `${bubble.width}%`,
+              maxWidth: `${bubble.maxWidth}%`,
             }}
             role="status"
             aria-live="polite"
           >
-            <img
-              className="supply-types-bubble-shape"
-              src={bubble.image}
-              alt=""
-              aria-hidden="true"
-              draggable="false"
-            />
-            <div className="supply-types-bubble-inner">
-              <span className="supply-types-bubble-text">
-                {renderHighlightedText(selectedItem.text, selectedItem.highlights)}
-              </span>
+
+            <div className="supply-types-bubble-text">
+              {renderHighlightedText(
+                selectedItem.text,
+                selectedItem.highlights
+              )}
             </div>
+
           </div>
         );
       })()}
 
-      {/* Dimension markers only appear with the relevant explanation. */}
+      {/* ====================================
+          חץ מדידה - קופסה רגישה לחום
+      ==================================== */}
+
       {visibleBubble === "heat" && (
-        <div className="supply-types-measure supply-types-measure--heat" aria-label="מרחק של מטר אחד לפחות מהגג">
-          <img src={smallArrow} alt="" draggable="false" />
+        <div
+          className="
+            supply-types-measure
+            supply-types-measure--heat
+          "
+          aria-label="מרחק של מטר אחד לפחות מהגג"
+        >
+          <img
+            src={smallArrow}
+            alt=""
+            draggable="false"
+          />
+
           <span>1 מטר</span>
         </div>
       )}
+
+      {/* ====================================
+          חץ מדידה - גובה אחסנה
+      ==================================== */}
+
       {visibleBubble === "stack" && (
-        <div className="supply-types-measure supply-types-measure--stack" aria-label="גובה אחסנה מקסימלי">
-          <img src={largeArrow} alt="" draggable="false" />
+        <div
+          className="
+            supply-types-measure
+            supply-types-measure--stack
+          "
+          aria-label="גובה אחסנה מקסימלי"
+        >
+          <img
+            src={largeArrow}
+            alt=""
+            draggable="false"
+          />
+
           <span>גובה אחסנה</span>
         </div>
       )}
+
     </section>
   );
 }
