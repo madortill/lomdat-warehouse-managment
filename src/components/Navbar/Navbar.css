@@ -331,3 +331,29 @@
         transition: none;
     }
 }
+
+
+
+/* ===================================== */
+/*  FIX: NAVBAR BLOCKING PRACTICE SLOTS  */
+/* ===================================== */
+
+/* המסגרת של הנאבבר לא חוסמת את התרגול */
+.learning-navbar {
+  pointer-events: none;
+}
+
+/* הכפתור שפותח את הנאבבר נשאר לחיץ */
+.learning-navbar-trigger {
+  pointer-events: auto;
+}
+
+/* הנאבבר הסגור לא חוסם לחיצות */
+.learning-navbar-expanded {
+  pointer-events: none;
+}
+
+/* הנאבבר הפתוח חוזר להיות לחיץ */
+.learning-navbar.is-open .learning-navbar-expanded {
+  pointer-events: auto;
+}

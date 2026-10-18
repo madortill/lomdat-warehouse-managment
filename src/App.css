@@ -216,11 +216,11 @@ img {
 
 /* צבע סימון טקסט בכל הלומדה */
 ::selection {
-  background-color: #FFE66D;
-  color: #222222;
+  background-color: #a31010;
+  color: #ffffff;
 }
 
 ::-moz-selection {
-  background-color: #FFE66D;
-  color: #222222;
+  background-color: #a31010;
+  color: #ffffff;
 }
