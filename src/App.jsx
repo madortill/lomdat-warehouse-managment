@@ -1,5 +1,9 @@
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 
 import tillLogo from "../media/Till-logo.png";
 import bahad6Logo from "../media/bahad-6-logo.png";
@@ -14,9 +18,25 @@ import "./App.css";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import FirstPage from "./components/FirstPage/FirstPage.jsx";
 import NavigationArrows from "./components/NavigationArrows/NavigationArrows.jsx";
-import InfoPage from "./components/InfoPage/InfoPage.jsx";
+
+import InfoPage, {
+  EQUIPMENT_RECEIPT_PAGE,
+} from "./components/InfoPage/InfoPage.jsx";
+
 import SupplyTypes from "./components/SupplyTypes/SupplyTypes.jsx";
 import FirstPractice from "./components/FirstPractice/FirstPractice.jsx";
+import ContainerPage from "./components/ContainerPage/ContainerPage.jsx";
+
+import OpenFieldSupply, {
+  OPEN_FIELD_START_PAGE,
+  OPEN_FIELD_END_PAGE,
+} from "./components/OpenFieldSupply/OpenFieldSupply.jsx";
+
+// ====================================
+// LAST PAGE
+// ====================================
+
+const LAST_PAGE = EQUIPMENT_RECEIPT_PAGE;
 
 function App() {
   // ====================================
@@ -24,38 +44,62 @@ function App() {
   // ====================================
 
   const [pageNum, setPageNum] = useState(0);
-  const [maxPageReached, setMaxPageReached] = useState(0);
+
+  const [maxPageReached, setMaxPageReached] =
+    useState(0);
 
   // ====================================
   // INFO PAGE PROGRESS
   // ====================================
 
-  const [seenInfoCards, setSeenInfoCards] = useState([]);
+  const [seenInfoCards, setSeenInfoCards] =
+    useState([]);
 
-  const infoPageCompleted = seenInfoCards.length >= 4;
+  const infoPageCompleted =
+    seenInfoCards.length >= 4;
 
   // ====================================
   // SUPPLY TYPES PROGRESS
   // ====================================
 
-  const [completedSupplySteps, setCompletedSupplySteps] =
-    useState([]);
+  const [
+    completedSupplySteps,
+    setCompletedSupplySteps,
+  ] = useState([]);
 
   // ====================================
   // NAVBAR TOPICS
   // ====================================
 
   const TOPICS = [
-    { page: 2, title: "עקרונות ומטרות אחסנה" },
+    {
+      page: 2,
+      title: "עקרונות ומטרות אחסנה",
+    },
     {
       page: 3,
       title: "סידור המחסן ושמירה על כשירות האפסניה",
     },
-    { page: 4, title: "עקרונות ומטרות אחסנה" },
-    { page: 5, title: "אחסנת אפסניה במכולות" },
-    { page: 6, title: "עזרי שליטה במחסן" },
-    { page: 7, title: "הוראות בטיחות במחסן" },
-    { page: 8, title: "אחסנת אפסניה בשטח פתוח" },
+    {
+      page: 4,
+      title: "עקרונות ומטרות אחסנה",
+    },
+    {
+      page: 5,
+      title: "אחסנת אפסניה במכולות",
+    },
+    {
+      page: 6,
+      title: "עזרי שליטה במחסן",
+    },
+    {
+      page: 7,
+      title: "הוראות בטיחות במחסן",
+    },
+    {
+      page: 8,
+      title: "אחסנת אפסניה בשטח פתוח",
+    },
   ];
 
   // ====================================
@@ -64,14 +108,18 @@ function App() {
 
   const toNextPage = () => {
     setPageNum((prev) => {
+
       // עמוד 2:
-      // חובה לחשוף את ארבע הכרטיסיות
-      if (prev === 2 && !infoPageCompleted) {
+      // חובה לחשוף את כל הכרטיסיות
+      if (
+        prev === 2 &&
+        !infoPageCompleted
+      ) {
         return prev;
       }
 
       // עמודים 9-17:
-      // חובה לפתוח את ההסבר של הקופסה הפעילה
+      // חובה לפתוח את הקופסה הפעילה
       if (
         prev >= 9 &&
         prev <= 17 &&
@@ -81,8 +129,17 @@ function App() {
       }
 
       // עמוד 18:
-      // התרגול האחרון שבנינו כרגע
-      return Math.min(prev + 1, 18);
+      // מעבר דרך FirstPractice
+      if (prev === 18) {
+        return prev;
+      }
+
+      // עמוד 35 הוא כרגע האחרון
+      return Math.min(
+        prev + 1,
+        LAST_PAGE
+      );
+
     });
   };
 
@@ -91,7 +148,9 @@ function App() {
   // ====================================
 
   const toPrevPage = () => {
-    setPageNum((prev) => Math.max(0, prev - 1));
+    setPageNum((prev) =>
+      Math.max(0, prev - 1)
+    );
   };
 
   // ====================================
@@ -195,14 +254,15 @@ function App() {
   // ====================================
 
   const canGoNext =
-    pageNum < 18 &&
-    (
-      pageNum !== 2 ||
-      infoPageCompleted
-    ) &&
+    pageNum < LAST_PAGE &&
+    pageNum !== 18 &&
+    (pageNum !== 2 || infoPageCompleted) &&
     (
       pageNum < 9 ||
-      completedSupplySteps.includes(pageNum - 9)
+      pageNum > 17 ||
+      completedSupplySteps.includes(
+        pageNum - 9
+      )
     );
 
   // ====================================
@@ -211,18 +271,19 @@ function App() {
 
   return (
     <>
+
       {/* ====================================
           GLOBAL BACKGROUND
       ==================================== */}
 
       <div
-        className={`page-background ${pageNum === 1 ? "blurred" : ""
-          }`}
+        className={`page-background ${
+          pageNum === 1 ? "blurred" : ""
+        }`}
       />
 
       {/* ====================================
-          LOGOS
-          מוסתרים בתרגול בגלל הקרוסלה
+          GLOBAL LOGOS
       ==================================== */}
 
       {pageNum !== 18 && (
@@ -260,27 +321,35 @@ function App() {
           className="Instructions-img"
           src={InstructionsImg}
           alt="הוראות הלומדה"
+          draggable="false"
         />
       )}
 
       {/* ====================================
-          GLOBAL NAVIGATION ARROWS
-          מוסתרים בתרגול בעמוד 18
+          NAVIGATION ARROWS
       ==================================== */}
 
-      {pageNum >= 1 && pageNum < 18 && (
+      {pageNum >= 1 && pageNum !== 18 && (
         <NavigationArrows
           onNext={toNextPage}
           onBack={toPrevPage}
           canGoNext={canGoNext}
+          canGoBack={pageNum > 0}
         />
       )}
 
       {/* ====================================
-          NAVBAR - PAGES 2-8
+          NAVBAR
+          PAGES 2-8 AND 18-35
       ==================================== */}
 
-      {((pageNum >= 2 && pageNum <= 8) || pageNum === 18) && (
+      {(
+        (pageNum >= 2 && pageNum <= 8) ||
+        (
+          pageNum >= 18 &&
+          pageNum <= LAST_PAGE
+        )
+      ) && (
         <Navbar
           topics={TOPICS}
           currentPage={pageNum}
@@ -290,10 +359,14 @@ function App() {
       )}
 
       {/* ====================================
-          INFO PAGE - PAGES 2-8
+          INFO PAGE
+          PAGES 2-8 + PAGE 35
       ==================================== */}
 
-      {pageNum >= 2 && pageNum <= 8 && (
+      {(
+        (pageNum >= 2 && pageNum <= 8) ||
+        pageNum === EQUIPMENT_RECEIPT_PAGE
+      ) && (
         <InfoPage
           pageNum={pageNum}
           onCardSeen={handleInfoCardSeen}
@@ -308,7 +381,9 @@ function App() {
       {pageNum >= 9 && pageNum <= 17 && (
         <SupplyTypes
           step={pageNum - 9}
-          onStepComplete={handleSupplyStepComplete}
+          onStepComplete={
+            handleSupplyStepComplete
+          }
         />
       )}
 
@@ -318,9 +393,38 @@ function App() {
 
       {pageNum === 18 && (
         <FirstPractice
-          onBackToMaterial={() => setPageNum(17)}
+
+          onBackToMaterial={() => {
+            setPageNum(17);
+          }}
+
+          onSkipPractice={() => {
+            setPageNum(19);
+          }}
+
         />
       )}
+
+      {/* ====================================
+          CONTAINER PAGE - PAGES 19-20
+      ==================================== */}
+
+      {pageNum >= 19 && pageNum <= 20 && (
+        <ContainerPage
+          pageNum={pageNum - 1}
+        />
+      )}
+
+      {/* ====================================
+          OPEN FIELD SUPPLY - PAGES 21-34
+      ==================================== */}
+
+      {pageNum >= OPEN_FIELD_START_PAGE &&
+        pageNum <= OPEN_FIELD_END_PAGE && (
+          <OpenFieldSupply
+            pageNum={pageNum}
+          />
+        )}
 
     </>
   );

@@ -1007,3 +1007,48 @@
     transition: none;
   }
 }
+
+
+/* ===================================== */
+/*       TEMPORARY SKIP BUTTON           */
+/* ===================================== */
+
+.first-practice-skip {
+  position: absolute;
+
+  bottom: 3.5%;
+  left: 16%;
+
+  width: 22rem;
+  height: 6.2rem;
+
+  z-index: 15;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #A9D8E8;
+  border: 0.25rem dashed #487E93;
+  border-radius: 0.65rem;
+
+  color: #244F61;
+
+  font-family: mplusExtraBold, Arial, sans-serif;
+  font-size: 2rem;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.first-practice-skip:hover {
+  transform: translateY(-0.2rem);
+  filter: brightness(1.08);
+}
+
+.first-practice-skip:active {
+  transform: translateY(0.1rem);
+}

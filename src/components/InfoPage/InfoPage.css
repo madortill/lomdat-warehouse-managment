@@ -564,3 +564,203 @@
     line-height: 1.75;
     text-align: center;
 }
+
+
+/* ===================================== */
+/*                                      */
+/*    PAGE 35 - EQUIPMENT RECEIPT FLOW  */
+/*                                      */
+/* ===================================== */
+
+/* ===================================== */
+/*           FLOW SCREEN                 */
+/* ===================================== */
+
+.info-page-receipt {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  direction: rtl;
+  overflow: hidden;
+
+  z-index: 10;
+}
+
+/* ===================================== */
+/*         TITLE ON LARGE BOX            */
+/* ===================================== */
+
+.info-page-receipt-title {
+  position: absolute;
+
+  top: 13.5%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 90%;
+  margin: 0;
+
+  font-family: mplusExtraBold, sans-serif;
+  font-size: 3.15rem;
+  font-weight: 800;
+  line-height: 1.25;
+
+  color: #8c6042;
+
+  text-align: center;
+  white-space: nowrap;
+
+  z-index: 4;
+}
+
+/* ===================================== */
+/*        FLOWCHART CONTAINER            */
+/* ===================================== */
+
+/*
+ * אזור התרשים ממוקם בתוך הארגז הגדול.
+ *
+ * אפשר להזיז את כל התרשים ביחד
+ * באמצעות top ו-left.
+ */
+
+.info-page-receipt-chart {
+  position: absolute;
+
+  top: 25%;
+  left: 4.5%;
+
+  width: 91%;
+  height: 60.5%;
+
+  direction: ltr;
+
+  z-index: 3;
+}
+
+/* ===================================== */
+/*         CONNECTING ARROWS             */
+/* ===================================== */
+
+.info-page-receipt-lines {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+.info-page-flow-path {
+  fill: none;
+
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.info-page-flow-path.is-red {
+  stroke: #e15b55;
+}
+
+.info-page-flow-path.is-green {
+  stroke: #62a85b;
+}
+
+/* ===================================== */
+/*           FLOWCHART NODES             */
+/* ===================================== */
+
+.info-page-receipt-node {
+  position: absolute;
+
+  left: var(--node-x);
+  top: var(--node-y);
+
+  transform: translate(-50%, -50%);
+
+  width: var(--node-width, 23%);
+  height: 12.2%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.25rem 0.65rem;
+  box-sizing: border-box;
+
+  background: #f1dfcf;
+  border-radius: 0.4rem;
+
+  color: #91694b;
+
+  font-family: mplusMedium, sans-serif;
+  font-size: 2.1rem;
+  font-weight: 600;
+  line-height: 1.15;
+
+  text-align: center;
+
+  z-index: 2;
+}
+
+.info-page-receipt-node span {
+  display: block;
+  width: 100%;
+  white-space: nowrap;
+}
+
+/* הדגשת תוצאות התהליך */
+
+.info-page-receipt-node.is-emphasized {
+  font-family: mplusExtraBold, sans-serif;
+  font-size: 2.1rem;
+  font-weight: 800;
+
+  color: #866044;
+}
+
+/* ===================================== */
+/*          ZIGI - FLOW SCREEN           */
+/* ===================================== */
+
+.info-page-receipt-zigi {
+  position: absolute;
+
+  left: 10%;
+  bottom: 10.5%;
+
+  width: 32rem;
+  height: auto;
+
+  /*
+   * זיגי בצד שמאל,
+   * בהתאם לתמונת העיצוב.
+   */
+  transform: scaleX(-1);
+  transform-origin: center;
+
+  z-index: 4;
+
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* הקופסה בעמוד 35 בלבד */
+
+.info-page-receipt .info-page-box {
+  top: 0%;
+  left: 48.5%;
+  transform: translateX(-50%);
+}

@@ -1,0 +1,126 @@
+
+/* ===================================== */
+/*             CONTAINER PAGE            */
+/* ===================================== */
+
+.container-page {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  direction: rtl;
+  z-index: 5;
+
+  background-color: #263E59;
+}
+
+/* ===================================== */
+/*           CONTAINER BACKGROUND        */
+/* ===================================== */
+
+.container-page-background {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  /* ממלא את כל המסך ללא שוליים או חיתוך */
+  object-fit: fill;
+
+  display: block;
+
+  z-index: 0;
+
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* הכותרת והטקסט מעל הרקע */
+.container-page-title,
+.container-page-text-wrapper {
+  z-index: 2;
+}
+
+
+/* הכותרת והטקסט מעל תמונת הרקע */
+.container-page-title,
+.container-page-text-wrapper {
+  z-index: 2;
+}
+
+
+
+.container-page-title {
+  position: absolute;
+  top: 1.5rem;
+  left: 49.5%;
+  transform: translateX(-50%);
+  width: 49rem;
+  height: auto;
+  z-index: 2;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+
+.container-page-text-wrapper {
+  position: absolute;
+  top: 18rem;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 65rem; /* כאן משנים את רוחב הטקסט */
+  max-width: 80%;
+
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.container-page-text {
+  width: 100%;
+
+  color: #f8f0d4;
+  font-family: mplusMedium, Arial, sans-serif;
+  font-size: 2.65rem;
+  line-height: 1.65;
+  text-align: center;
+
+  text-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.35);
+}
+
+
+.container-page-text p {
+  margin: 0;
+}
+
+.container-page-bold {
+  margin-top: 3.4rem !important;
+  font-family: mplusExtraBold, Arial, sans-serif;
+  font-weight: 800;
+}
+
+/* אם תרצי להזיז מעט את הטקסט בין העמודים,
+   אפשר להוסיף קלאסים נפרדים בהמשך */
+
+@media (prefers-reduced-motion: reduce) {
+  .container-page * {
+    transition: none !important;
+  }
+}
+.container-page-text-wrapper {
+  width: 50rem !important;
+}
+
+.container-page-text {
+  width: 100% !important;
+}

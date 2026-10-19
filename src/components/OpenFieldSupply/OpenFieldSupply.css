@@ -1,0 +1,847 @@
+
+/* ===================================== */
+/*          OPEN FIELD SUPPLY            */
+/* ===================================== */
+
+.open-field-supply {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+  isolation: isolate;
+
+  direction: rtl;
+  background: #73b8e7;
+
+  z-index: 5;
+
+  --earth-duration: 1.2s;
+}
+
+.open-field-supply img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ===================================== */
+/*              BACKGROUNDS              */
+/* ===================================== */
+
+.open-field-supply-background {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  opacity: 0;
+  z-index: 0;
+
+  transition: opacity 0.7s ease;
+}
+
+.open-field-supply-background.is-visible {
+  opacity: 1;
+}
+
+/* ===================================== */
+/*               SAND HILLS              */
+/* ===================================== */
+
+.open-field-sand-hills {
+  position: absolute;
+
+  left: 0;
+  bottom: 7%;
+
+  width: 100%;
+  height: auto;
+
+  opacity: 0;
+  z-index: 2;
+
+  transition: opacity 0.55s ease;
+}
+
+.open-field-sand-hills.is-visible {
+  opacity: 1;
+}
+
+/* ===================================== */
+/*           HEIGHTENED SUPPLY           */
+/* ===================================== */
+
+.open-field-inventory {
+  position: absolute;
+
+  left: 10.2%;
+  bottom: 13.5%;
+
+  width: 45.5%;
+  height: auto;
+
+  opacity: 0;
+  z-index: 4;
+
+  isolation: isolate;
+  overflow: visible;
+
+  transition: opacity 0.6s ease;
+}
+
+.open-field-inventory.is-visible {
+  opacity: 1;
+}
+
+/* ===================================== */
+/*          INVENTORY IMAGE              */
+/* ===================================== */
+
+.open-field-inventory-art {
+  position: relative;
+
+  display: block;
+  width: 100%;
+  height: auto;
+
+  z-index: 2;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ===================================== */
+/*           BLUE OUTER GLOW             */
+/* ===================================== */
+
+.open-field-blue-shadow {
+  position: absolute;
+
+  /* המיקומים מהגרסה שלך */
+  width: 101.75%;
+  height: auto;
+
+  left: -0.87%;
+  bottom: 7%;
+
+  display: block;
+  object-fit: contain;
+
+  /* הזוהר מאחורי האפסניה */
+  z-index: 1;
+
+  opacity: 0;
+
+  transform: translateY(0.2rem) scale(0.99);
+  transform-origin: center bottom;
+
+  mix-blend-mode: normal;
+
+  filter:
+    brightness(1.05)
+    drop-shadow(
+      0 0 0.2rem rgba(38, 183, 255, 0.25)
+    )
+    drop-shadow(
+      0 0 0.4rem rgba(45, 175, 255, 0.12)
+    );
+
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+
+  transition:
+    opacity 0.7s ease-in-out,
+    transform 0.7s ease-in-out,
+    filter 0.7s ease-in-out;
+}
+
+.open-field-blue-shadow.is-glowing {
+  opacity: 1;
+
+  transform: translateY(0) scale(1);
+
+  filter:
+    brightness(1.45)
+    drop-shadow(
+      0 0 0.55rem rgba(38, 183, 255, 0.95)
+    )
+    drop-shadow(
+      0 0 1.3rem rgba(45, 175, 255, 0.65)
+    );
+}
+
+/* ===================================== */
+/*               WET GROUND              */
+/* ===================================== */
+
+.open-field-wet {
+  position: absolute;
+
+  left: -1%;
+  bottom: -8%;
+
+  width: 64%;
+  height: auto;
+
+  opacity: 0;
+  z-index: 3;
+
+  transition: opacity 1.8s ease-in-out;
+}
+
+.open-field-wet.is-visible {
+  opacity: 1;
+}
+
+/* ===================================== */
+/*                  ZIGI                 */
+/* ===================================== */
+
+.open-field-zigi {
+  position: absolute;
+
+  right: 11.5%;
+  bottom: 11.5%;
+
+  width: 23.5%;
+  height: auto;
+
+  display: block;
+  opacity: 0;
+
+  transform: none;
+  z-index: 7;
+
+  transition: opacity 0.45s ease;
+}
+
+.open-field-zigi.is-visible {
+  opacity: 1;
+}
+
+/* ===================================== */
+/*             CARDBOARD BOX             */
+/* ===================================== */
+
+.open-field-box {
+  position: absolute;
+
+  width: var(--box-width, 19.5%);
+
+  right: 25%;
+  bottom: 12%;
+
+  height: auto;
+
+  opacity: 1;
+  z-index: 8;
+
+  transition:
+    width 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+
+.open-field-box.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.open-field-box-art {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ===================================== */
+/*                BOX TEXT               */
+/* ===================================== */
+
+.open-field-box-content {
+  position: absolute;
+
+  top: 15%;
+  right: 16%;
+  bottom: 11%;
+  left: 16%;
+
+  display: grid;
+  grid-template-areas: "copy";
+  place-items: center;
+
+  direction: rtl;
+  text-align: center;
+
+  color: #FFFCD8;
+
+  font-family: mplusMedium, Arial, sans-serif;
+
+  font-size: var(--box-font, 2.2rem);
+  line-height: var(--box-line-height, 1.42);
+
+  text-shadow:
+    0 0.15rem 0.2rem rgba(83, 47, 21, 0.15);
+}
+
+.open-field-box-copy {
+  grid-area: copy;
+
+  width: 100%;
+  margin: 0;
+
+  overflow-wrap: normal;
+  text-wrap: pretty;
+}
+
+/* ===================================== */
+/*            REGULAR TEXT ENTRY         */
+/* ===================================== */
+
+.open-field-box-copy:not(.is-earth-old):not(.is-earth-new) {
+  animation: ofs-text-enter 0.42s ease-out both;
+}
+
+@keyframes ofs-text-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.3rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================== */
+/*               BOLD TEXT               */
+/* ===================================== */
+
+.open-field-box-content strong {
+  font-family: mplusExtraBold, Arial, sans-serif;
+  font-weight: 800;
+}
+
+/* ===================================== */
+/*         HEIGHT MEASUREMENT ARROW      */
+/* ===================================== */
+
+/*
+ * מופיע רק במסך 6 (עמוד 26).
+ * המדידה ממוקמת ליד המשטחים.
+ *
+ * לשינוי המיקום:
+ * left   - ימינה ושמאלה
+ * bottom - למעלה ולמטה
+ *
+ * לשינוי אורך החץ:
+ * height
+ */
+
+.open-field-measure {
+  position: absolute;
+
+  left: 34%;
+  bottom: 14.7%;
+
+  width: 15rem;
+  height: 4rem;
+
+  z-index: 6;
+  pointer-events: none;
+
+  animation: ofs-measure-enter
+    0.55s ease-out both;
+}
+
+/* העמודה שבה נמצא החץ */
+
+.open-field-measure-arrow {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 4.5rem;
+  height: 100%;
+}
+
+/* הקו האנכי */
+
+.open-field-measure-line {
+  position: absolute;
+
+  left: 50%;
+  top: 0.8rem;
+  bottom: 0.8rem;
+
+  width: 0.3rem;
+
+  transform: translateX(-50%);
+
+  border-radius: 999px;
+
+  background: #fff5d4;
+
+  box-shadow:
+    0 0 0.3rem rgba(255, 247, 215, 0.65),
+    0 0 0.65rem rgba(255, 247, 215, 0.3),
+    0 0.15rem 0.3rem rgba(53, 33, 16, 0.25);
+}
+
+/* ראש החץ העליון */
+
+.open-field-measure-arrow-top {
+  position: absolute;
+
+  top: 0;
+  left: 50%;
+
+  width: 0;
+  height: 0;
+
+  transform: translateX(-50%);
+
+  border-left: 0.85rem solid transparent;
+  border-right: 0.85rem solid transparent;
+  border-bottom: 1.25rem solid #fff5d4;
+
+  filter:
+    drop-shadow(
+      0 0.1rem 0.2rem rgba(40, 29, 14, 0.22)
+    );
+}
+
+/* ראש החץ התחתון */
+
+.open-field-measure-arrow-bottom {
+  position: absolute;
+
+  bottom: 0;
+  left: 50%;
+
+  width: 0;
+  height: 0;
+
+  transform: translateX(-50%);
+
+  border-left: 0.85rem solid transparent;
+  border-right: 0.85rem solid transparent;
+  border-top: 1.25rem solid #fff5d4;
+
+  filter:
+    drop-shadow(
+      0 0.1rem 0.2rem rgba(40, 29, 14, 0.22)
+    );
+}
+
+/* כיתוב המדידה */
+
+.open-field-measure-label {
+  position: absolute;
+
+  left: 4rem;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  padding: 0.55rem 1rem;
+
+  border-radius: 0.75rem;
+
+  background: rgba(86, 57, 34, 0.42);
+
+  color: #fff7df;
+
+  font-family: mplusExtraBold, Arial, sans-serif;
+  font-size: 1.65rem;
+  line-height: 1.15;
+
+  white-space: nowrap;
+
+  border: 0.12rem solid rgba(255, 243, 206, 0.5);
+
+  box-shadow:
+    0 0.2rem 0.5rem rgba(36, 25, 13, 0.2);
+}
+
+/* כניסה עדינה של המדידה */
+
+@keyframes ofs-measure-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================== */
+/*                 TITLES                */
+/* ===================================== */
+
+.open-field-title,
+.open-field-subtitle {
+  position: absolute;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: max-content;
+  max-width: 70%;
+
+  margin: 0;
+
+  text-align: center;
+  color: #fff4d4;
+
+  font-family: mplusExtraBold, Arial, sans-serif;
+  font-weight: 800;
+
+  white-space: nowrap;
+  z-index: 20;
+
+  text-shadow:
+    0 0.1rem 0.25rem rgba(0, 0, 0, 0.08);
+}
+
+.open-field-title {
+  top: 3.6%;
+  font-size: 4rem;
+  line-height: 1.35;
+}
+
+.open-field-subtitle {
+  top: 11.2%;
+
+  font-size: 2.55rem;
+  line-height: 1.3;
+
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.open-field-subtitle.is-visible {
+  opacity: 1;
+}
+
+/* ===================================== */
+/*               TREE INTRO              */
+/* ===================================== */
+
+.open-field-tree-intro {
+  position: absolute;
+
+  /* המיקום והעיצוב המעודכנים שלך */
+  top: 10.8%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 59%;
+  margin: 0;
+
+  color: #FFFCD8;
+
+  font-family: mplusExtraBold, Arial, sans-serif;
+  font-size: 2.7rem;
+  line-height: 1.5;
+
+  text-align: center;
+  z-index: 12;
+
+  animation:
+    ofs-tree-intro-enter 0.65s ease-out both;
+}
+
+@keyframes ofs-tree-intro-enter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* ===================================== */
+/*              RAIN DIMMING             */
+/* ===================================== */
+
+.open-field-rain-dim {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(54, 69, 89, 0.32);
+
+  opacity: 0;
+  pointer-events: none;
+
+  z-index: 6;
+  transition: opacity 1.1s ease;
+}
+
+.open-field-rain-dim.is-active {
+  opacity: 1;
+}
+
+/* ===================================== */
+/*                   RAIN                */
+/* ===================================== */
+
+.open-field-rain {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+
+  pointer-events: none;
+  z-index: 10;
+
+  transition:
+    opacity 0.6s ease,
+    visibility 0s linear 0.6s;
+}
+
+.open-field-rain.is-active {
+  opacity: 1;
+  visibility: visible;
+
+  transition:
+    opacity 0.6s ease,
+    visibility 0s;
+}
+
+.open-field-raindrop {
+  position: absolute;
+
+  width: 0.11rem;
+  border-radius: 100px;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(221, 240, 255, 0),
+    rgba(221, 240, 255, 0.75),
+    rgba(221, 240, 255, 0)
+  );
+
+  animation:
+    ofs-rain-fall 1.8s linear infinite;
+
+  will-change: transform;
+}
+
+.open-field-rain:not(.is-active)
+.open-field-raindrop {
+  animation-play-state: paused;
+}
+
+@keyframes ofs-rain-fall {
+  from {
+    transform:
+      translate3d(0, -10vh, 0)
+      rotate(12deg);
+  }
+
+  to {
+    transform:
+      translate3d(-8vw, 125vh, 0)
+      rotate(12deg);
+  }
+}
+
+/* ===================================== */
+/*       SINGLE EARTH TRANSITION         */
+/* ===================================== */
+
+/*
+ * ציר זמן אחד:
+ *
+ * 0%-65%:
+ * הגבעות נעלמות.
+ *
+ * 65%-100%:
+ * האפסניה והטקסט החדש מופיעים.
+ *
+ * זיגי והארגז אינם זזים.
+ */
+
+/* ===================================== */
+/* 1. HILLS DISSOLVE                     */
+/* ===================================== */
+
+.open-field-supply.is-earth-running
+.open-field-sand-hills {
+  transition: none;
+
+  animation:
+    ofs-hills-dissolve
+    var(--earth-duration)
+    linear both;
+}
+
+@keyframes ofs-hills-dissolve {
+  0%,
+  5% {
+    opacity: 1;
+  }
+
+  15% {
+    opacity: 0.97;
+  }
+
+  32% {
+    opacity: 0.78;
+  }
+
+  48% {
+    opacity: 0.38;
+  }
+
+  60% {
+    opacity: 0.08;
+  }
+
+  65%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ===================================== */
+/* 2. INVENTORY APPEARS                   */
+/* ===================================== */
+
+.open-field-supply.is-earth-running
+.open-field-inventory.is-visible {
+  transition: none;
+
+  animation:
+    ofs-inventory-appear
+    var(--earth-duration)
+    linear both;
+}
+
+@keyframes ofs-inventory-appear {
+  0%,
+  65% {
+    opacity: 0;
+  }
+
+  75% {
+    opacity: 0.12;
+  }
+
+  88% {
+    opacity: 0.65;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ===================================== */
+/* 3. OLD TEXT FADES OUT                 */
+/* ===================================== */
+
+.open-field-box-copy.is-earth-old {
+  opacity: 1;
+}
+
+.open-field-supply.is-earth-running
+.open-field-box-copy.is-earth-old {
+  animation:
+    ofs-old-text-out
+    var(--earth-duration)
+    linear both;
+}
+
+@keyframes ofs-old-text-out {
+  0%,
+  60% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0.35;
+  }
+
+  86%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ===================================== */
+/* 4. NEW TEXT FADES IN                  */
+/* ===================================== */
+
+.open-field-box-copy.is-earth-new {
+  opacity: 1;
+}
+
+.open-field-supply.is-earth-running
+.open-field-box-copy.is-earth-new {
+  animation:
+    ofs-new-text-in
+    var(--earth-duration)
+    linear both;
+}
+
+@keyframes ofs-new-text-in {
+  0%,
+  74% {
+    opacity: 0;
+  }
+
+  86% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ===================================== */
+/*              GLOBAL LOGOS             */
+/* ===================================== */
+
+#root:has(.open-field-supply) > .till-logo,
+#root:has(.open-field-supply) > .bahad-logo {
+  z-index: 60;
+}
+
+/* ===================================== */
+/*             ACCESSIBILITY             */
+/* ===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .open-field-supply *,
+  .open-field-supply *::before,
+  .open-field-supply *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .open-field-raindrop {
+    display: none;
+  }
+}

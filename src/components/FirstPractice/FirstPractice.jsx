@@ -43,7 +43,7 @@ const OPEN_BOX_IDS = new Set([
   "move",
 ]);
 
-function FirstPractice({ onComplete, onBackToMaterial }) {
+function FirstPractice({ onComplete, onBackToMaterial, onSkipPractice }) {
   // ====================================
   // STATES
   // ====================================
@@ -398,9 +398,8 @@ function FirstPractice({ onComplete, onBackToMaterial }) {
 
   return (
     <section
-      className={`first-practice ${
-        modalOpen ? "first-practice--modal-open" : ""
-      }`}
+      className={`first-practice ${modalOpen ? "first-practice--modal-open" : ""
+        }`}
       dir="rtl"
       aria-label="תרגול אחסנה לפי סוגי אפסניה"
     >
@@ -423,6 +422,24 @@ function FirstPractice({ onComplete, onBackToMaterial }) {
         <img src={smallArrow} alt="" draggable="false" />
         <span>1 מטר</span>
       </div>
+
+      {/* כפתור דילוג */}
+
+      {/* ====================================
+    TEMPORARY SKIP BUTTON
+    להסיר לאחר סיום פיתוח התרגול
+==================================== */}
+
+      {!modalOpen && (
+        <button
+          type="button"
+          className="first-practice-skip"
+          onClick={onSkipPractice}
+        >
+          דלג על התרגול 
+        </button>
+      )}
+
 
       {/* ====================================
           אזורי השיבוץ במדפים
@@ -460,11 +477,10 @@ function FirstPractice({ onComplete, onBackToMaterial }) {
               }}
               onClick={() => pickSlot(slot.id)}
               role="group"
-              aria-label={`${slot.label}${
-                itemId
+              aria-label={`${slot.label}${itemId
                   ? ` – ${itemMap[itemId]?.label}`
                   : " – פנוי"
-              }`}
+                }`}
             >
               {!itemId ? (
                 <span className="first-practice-slot-label">
@@ -484,11 +500,10 @@ function FirstPractice({ onComplete, onBackToMaterial }) {
                     event.stopPropagation();
                     selectItem(itemId);
                   }}
-                  aria-label={`${itemMap[itemId]?.label}${
-                    isLocked
+                  aria-label={`${itemMap[itemId]?.label}${isLocked
                       ? ", תשובה נכונה"
                       : ", לחצו לבחירה או גררו להחלפה"
-                  }`}
+                    }`}
                   disabled={isLocked}
                 >
                   <img
