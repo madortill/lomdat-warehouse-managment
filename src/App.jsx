@@ -121,7 +121,7 @@ function App() {
   const [pageNum, setPageNum] = useState(() =>
     Number.isInteger(savedCourse?.pageNum)
       ? Math.max(
-          36,
+          0,
           Math.min(LAST_PAGE, savedCourse.pageNum)
         )
       : 0 
