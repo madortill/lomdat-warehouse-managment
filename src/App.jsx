@@ -118,15 +118,15 @@ function App() {
   // PAGE STATE
   // ====================================
 
-  const [pageNum, setPageNum] = useState((37) 
-  );
-/*=>
+  const [pageNum, setPageNum] = useState(() =>
     Number.isInteger(savedCourse?.pageNum)
       ? Math.max(
           36,
           Math.min(LAST_PAGE, savedCourse.pageNum)
         )
-      : 0 */
+      : 0 
+  );
+
   const [maxPageReached, setMaxPageReached] =
     useState(() =>
       Number.isInteger(savedCourse?.maxPageReached)
