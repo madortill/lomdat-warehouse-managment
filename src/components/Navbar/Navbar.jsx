@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 
 import navbarClosed from "../../../media/Navbar/navbar-closed.svg";
@@ -14,7 +15,32 @@ function Navbar({
   const [isOpen, setIsOpen] = useState(false);
   const navbarRef = useRef(null);
 
-  // סגירה בלחיצה מחוץ לנאבבר או במקש Escape
+  // ====================================
+  // FIND CURRENT TOPIC
+  //
+  // הנושא הנוכחי נקבע לפי טווח
+  // העמודים שלו, ולא רק לפי עמוד
+  // ההתחלה.
+  // ====================================
+
+  const currentTopicIndex = topics.reduce(
+    (activeIndex, topic, index) => {
+      if (currentPage >= topic.page) {
+        return index;
+      }
+
+      return activeIndex;
+    },
+    -1
+  );
+
+  // ====================================
+  // CLOSE NAVBAR
+  //
+  // לחיצה מחוץ ללוח או Escape
+  // סוגרת אותו.
+  // ====================================
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -33,31 +59,62 @@ function Navbar({
       }
     };
 
-    document.addEventListener("pointerdown", handleOutsideClick);
-    document.addEventListener("keydown", handleEscape);
+    document.addEventListener(
+      "pointerdown",
+      handleOutsideClick
+    );
+
+    document.addEventListener(
+      "keydown",
+      handleEscape
+    );
 
     return () => {
-      document.removeEventListener("pointerdown", handleOutsideClick);
-      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener(
+        "pointerdown",
+        handleOutsideClick
+      );
+
+      document.removeEventListener(
+        "keydown",
+        handleEscape
+      );
     };
   }, [isOpen]);
 
-  const handleTopicClick = (topicPage) => {
-    // מניעת מעבר לנושאים שטרם הגענו אליהם
-    if (topicPage > maxPageReached) return;
+  // ====================================
+  // NAVIGATE TO TOPIC
+  //
+  // אפשר להיכנס רק לנושא
+  // שכבר נפתח במהלך הלומדה.
+  // ====================================
 
-    onNavigate(topicPage);
+  const handleTopicClick = (topicPage) => {
+    if (topicPage > maxPageReached) {
+      return;
+    }
+
+    onNavigate?.(topicPage);
     setIsOpen(false);
   };
+
+  // ====================================
+  // RENDER
+  // ====================================
 
   return (
     <nav
       ref={navbarRef}
-      className={`learning-navbar ${isOpen ? "is-open" : ""}`}
+      className={`learning-navbar ${
+        isOpen ? "is-open" : ""
+      }`}
       aria-label="נושאי הלומדה"
       dir="rtl"
     >
-      {/* הנאבבר הסגור */}
+      {/* ====================================
+          CLOSED NAVBAR
+      ==================================== */}
+
       <button
         type="button"
         className="learning-navbar-trigger"
@@ -67,10 +124,17 @@ function Navbar({
         aria-controls="learning-navbar-panel"
         disabled={isOpen}
       >
-        <img src={navbarClosed} alt="" draggable="false" />
+        <img
+          src={navbarClosed}
+          alt=""
+          draggable="false"
+        />
       </button>
 
-      {/* הנאבבר הפתוח */}
+      {/* ====================================
+          OPEN NAVBAR
+      ==================================== */}
+
       <div
         id="learning-navbar-panel"
         className="learning-navbar-expanded"
@@ -83,6 +147,10 @@ function Navbar({
           draggable="false"
         />
 
+        {/* ====================================
+            CLOSE BUTTON
+        ==================================== */}
+
         <button
           type="button"
           className="learning-navbar-close"
@@ -93,14 +161,60 @@ function Navbar({
           ×
         </button>
 
+        {/* ====================================
+            TOPICS LIST
+        ==================================== */}
+
         <ol className="learning-navbar-topics">
-          {topics.map((topic) => {
-            const isCurrent = topic.page === currentPage;
+          {topics.map((topic, index) => {
+            // ====================================
+            // CURRENT TOPIC
+            //
+            // הנושא שבו אנחנו נמצאים כרגע.
+            // ====================================
+
+            const isCurrent =
+              index === currentTopicIndex;
+
+            // ====================================
+            // LOCKED TOPIC
+            //
+            // נושא שעוד לא הגענו אליו.
+            // ====================================
+
+            const isLocked =
+              topic.page > maxPageReached;
+
+            // ====================================
+            // COMPLETED TOPIC
+            //
+            // נושא נחשב כמושלם כאשר
+            // הגענו לנושא הבא.
+            //
+            // בנושא האחרון:
+            // ההשלמה היא כשהגענו
+            // לעמוד שאחריו (מסך הסיום).
+            //
+            // חשוב:
+            // הווי נשאר גם כשחוזרים
+            // לנושא שכבר הושלם.
+            // ====================================
+
+            const nextTopic = topics[index + 1];
+
+            const isCompleted = nextTopic
+              ? maxPageReached >= nextTopic.page
+              : maxPageReached > topic.page;
+
+            // ====================================
+            // VISITED TOPIC
+            //
+            // נושא שכבר נפתח,
+            // אבל אינו הנושא הנוכחי.
+            // ====================================
 
             const isVisited =
-              topic.page <= maxPageReached && !isCurrent;
-
-            const isLocked = topic.page > maxPageReached;
+              !isLocked && !isCurrent;
 
             return (
               <li key={topic.page}>
@@ -110,17 +224,28 @@ function Navbar({
                     "learning-navbar-item",
                     isCurrent ? "is-current" : "",
                     isVisited ? "is-visited" : "",
+                    isCompleted ? "is-completed" : "",
                     isLocked ? "is-locked" : "",
-                  ].join(" ")}
-                  onClick={() => handleTopicClick(topic.page)}
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  onClick={() =>
+                    handleTopicClick(topic.page)
+                  }
                   disabled={!isOpen || isLocked}
-                  aria-current={isCurrent ? "page" : undefined}
+                  aria-current={
+                    isCurrent ? "page" : undefined
+                  }
                 >
+                  {/* ====================================
+                      CHECKBOX
+                  ==================================== */}
+
                   <span
                     className="learning-navbar-check"
                     aria-hidden="true"
                   >
-                    {isVisited && (
+                    {isCompleted && (
                       <svg
                         viewBox="0 0 40 40"
                         fill="none"
@@ -136,6 +261,10 @@ function Navbar({
                       </svg>
                     )}
                   </span>
+
+                  {/* ====================================
+                      TOPIC TITLE
+                  ==================================== */}
 
                   <span className="learning-navbar-label">
                     {topic.title}

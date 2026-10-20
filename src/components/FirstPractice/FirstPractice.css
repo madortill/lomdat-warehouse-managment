@@ -596,7 +596,7 @@
 .first-practice-submit {
   position: absolute;
 
-  left: 57%;
+  left: 52%;
   bottom: 3.5%;
 
   transform: translateX(-50%);
@@ -1051,4 +1051,22 @@
 
 .first-practice-skip:active {
   transform: translateY(0.1rem);
+}
+
+
+
+/* ===================================== */
+/*       NEXT PAGE BUTTON               */
+/* ===================================== */
+
+/* אותו עיצוב של חזרה לחומר, במיקום כפתור הדילוג הקודם */
+
+.first-practice-back-to-material.first-practice-next-page {
+  position: absolute;
+
+  left: 16%;
+  right: auto;
+  bottom: 3.5%;
+
+  z-index: 15;
 }

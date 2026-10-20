@@ -1,115 +1,555 @@
+
 /* ===================================== */
 /*               FIRST PAGE              */
 /* ===================================== */
 
+.first-page-screen {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  direction: rtl;
+}
 
 /* ===================================== */
-/*                 TITLES                */
+/*             START TITLES              */
 /* ===================================== */
 
 .first-page-title {
-    color: #FAD25B;
+  color: #FAD25B;
 
-    font-family: mplusExtraBold, sans-serif;
+  font-family: mplusExtraBold, sans-serif;
+  font-size: 7.2rem;
+  line-height: 1.15;
 
-    font-size: 7.2rem;
-    line-height: 1.15;
-
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .first-page-welcome {
-    color: aliceblue;
+  color: aliceblue;
 
-    font-family: mplusExtraBold, sans-serif;
-
-    font-size: 2.1rem;
-    line-height: 1.3;
+  font-family: mplusExtraBold, sans-serif;
+  font-size: 2.1rem;
+  line-height: 1.3;
 }
-
-.titles-div {
-    position: absolute;
-
-    top: 42%;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    z-index: 5;
-}
-
 
 /* ===================================== */
-/*           ZIGI - FIRST PAGE           */
+/*           TITLES CONTAINER            */
+/* ===================================== */
+
+.titles-div {
+  position: absolute;
+
+  top: 42%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 5;
+}
+
+/* ===================================== */
+/*           ZIGI - BOTH PAGES           */
 /* ===================================== */
 
 .zigi-first-page {
-    position: absolute;
+  position: absolute;
 
-    width: 32rem;
-    height: auto;
+  width: 32rem;
+  height: auto;
 
-    top: 59%;
-    left: 32rem;
+  top: 59%;
+  left: 32rem;
 
-    transform: rotate(-2.64deg);
+  transform: rotate(-2.64deg);
 
-    z-index: 3;
+  z-index: 3;
 }
 
-
 /* ===================================== */
-/*             START BUTTON              */
+/*            BOX - BOTH PAGES           */
 /* ===================================== */
 
 .start-button-first-page {
-    position: absolute;
+  position: absolute;
 
-    width: 19rem;
-    height: auto;
+  width: 22rem;
+  height: auto;
 
-    top: 72.5%;
-    left: 48rem;
+  top: 70.5%;
+  left: 46.5rem;
 
-    z-index: 10;
+  z-index: 10;
 
-    transform: rotate(-5deg);
+  transform: rotate(-5deg);
 
-    cursor: pointer;
+  cursor: pointer;
 
-    animation: buttonGlow 1s ease-in-out infinite alternate;
+  animation:
+    buttonGlow 1s ease-in-out infinite alternate;
 }
-
 
 /* ===================================== */
 /*           START BUTTON GLOW           */
 /* ===================================== */
 
 @keyframes buttonGlow {
-    from {
-        filter: drop-shadow(
-            0 0 0.5rem rgba(255, 225, 117, 0.5)
-        );
-    }
+  from {
+    filter: drop-shadow(
+      0 0 0.5rem rgba(255, 225, 117, 0.5)
+    );
+  }
 
-    to {
-        filter:
-            drop-shadow(
-                0 0 1.2rem rgb(255, 185, 45)
-            )
-            drop-shadow(
-                0 0 2.5rem rgba(255, 190, 40, 0.7)
-            );
-    }
+  to {
+    filter:
+      drop-shadow(
+        0 0 1.2rem rgb(255, 185, 45)
+      )
+      drop-shadow(
+        0 0 2.5rem rgba(255, 190, 40, 0.7)
+      );
+  }
 }
 
+/* ===================================== */
+/*              END SCREEN              */
+/* ===================================== */
+
+/* ===================================== */
+/*        END SCREEN TITLES POSITION     */
+/* ===================================== */
+
+.first-page-end .titles-div {
+  top: 30%;
+  left: 50%;
+}
+
+/* ===================================== */
+/*              WELL DONE               */
+/* ===================================== */
+
+.first-page-end-welcome {
+  color: #FFFFFF;
+
+  font-family: mplusExtraBold, sans-serif;
+
+  font-size: 4.2rem;
+  font-weight: 800;
+  line-height: 1.3;
+
+  margin: 0 0 1.4rem;
+
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ===================================== */
+/*             END MAIN TITLE            */
+/* ===================================== */
+
+.first-page-end-title {
+  color: #FAD25B;
+
+  font-family: mplusExtraBold, sans-serif;
+
+  font-size: 8rem;
+  font-weight: 800;
+  line-height: 1.15;
+
+  margin: 0;
+
+  text-align: center;
+  white-space: nowrap;
+
+  text-shadow:
+    0 0.4rem 0.7rem rgba(55, 38, 17, 0.14);
+}
+
+/* ===================================== */
+/*            END BOX BUTTON             */
+/* ===================================== */
+
+/*
+ * מיקום וגודל הקופסה האחרונה.
+ * הכפתור לחיץ ומהבהב.
+ */
+
+.first-page-end .start-button-first-page {
+  position: absolute;
+
+  width: 35rem;
+  height: auto;
+
+  top: 62.5%;
+  left: 25%;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  background: transparent;
+
+  display: block;
+
+  transform: rotate(-5deg);
+
+  cursor: pointer;
+  pointer-events: auto;
+
+  z-index: 10;
+
+  animation:
+    endBoxGlow 1.1s ease-in-out infinite alternate;
+}
+
+/* ===================================== */
+/*             END BOX IMAGE             */
+/* ===================================== */
+
+.first-page-end-button-image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.about-button {
+  position: absolute;
+
+  /* גודל התמונה */
+  width: 17.5%;
+  height: auto;
+
+  /* מיקום על המדף הימני העליון */
+  top: -3.8%;
+  right:-1%;
+
+  transform: rotate(-5deg) !important;
+
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+
+  display: block;
+  cursor: pointer;
+  pointer-events: auto;
+
+  z-index: 10;
+}
+
+/* אם התמונה נמצאת בתוך button */
+.about-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ===================================== */
+/*            END BOX GLOW               */
+/* ===================================== */
+
+/*
+ * זוהר צהוב והגדלה עדינה
+ * כדי להבליט שהארגז לחיץ.
+ */
+
+@keyframes endBoxGlow {
+  from {
+    transform: rotate(-5deg) ;
+
+    filter:
+      brightness(1)
+      drop-shadow(
+        0 0 0.5rem rgba(255, 225, 117, 0.4)
+      );
+  }
+
+  to {
+    transform: rotate(-5deg) ;
+
+    filter:
+      brightness(1.1)
+      drop-shadow(
+        0 0 1.4rem rgba(255, 200, 60, 0.85)
+      )
+      drop-shadow(
+        0 0 2.5rem rgba(255, 190, 40, 0.5)
+      );
+  }
+}
+
+/* ===================================== */
+/*            END BOX HOVER              */
+/* ===================================== */
+
+.first-page-end .start-button-first-page:hover {
+  filter: brightness(1.15);
+}
+
+.first-page-end .start-button-first-page:focus-visible {
+  outline: 0.3rem solid #FAD25B;
+  outline-offset: 0.5rem;
+  border-radius: 0.6rem;
+}
 
 /* ===================================== */
 /*             REDUCED MOTION            */
 /* ===================================== */
 
 @media (prefers-reduced-motion: reduce) {
-    .start-button-first-page {
-        animation: none;
-    }
+  .start-button-first-page,
+  .first-page-end .start-button-first-page {
+    animation: none;
+  }
+}
+
+
+/* ===================================== */
+/*            ABOUT ANCHOR               */
+/* ===================================== */
+
+.first-page-about-anchor {
+  /* משתמש במיקום ובגודל הקיימים של .about-button */
+  z-index: 5000;
+  transform: none;
+  overflow: visible;
+  pointer-events: auto;
+}
+
+/* ===================================== */
+/*             ABOUT TRIGGER             */
+/* ===================================== */
+
+.first-page-about-trigger {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  background: transparent;
+
+  line-height: 0;
+  cursor: pointer;
+}
+
+.first-page-about-trigger .about-button-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+/* ===================================== */
+/*              ABOUT CARD               */
+/* ===================================== */
+
+.first-page-about-modal {
+  position: absolute;
+
+  /* מתחת לתמונת האודות */
+  top: calc(100% + 3rem);
+  right: 10%;
+  left: auto;
+    transform: rotate(5deg);
+  /* מעט קטן יותר */
+  width: 26rem;
+  height: 60rem;
+
+  box-sizing: border-box;
+
+  background: #fff0c4;
+
+  border: 0.25rem solid #87674d;
+  border-radius: 1.9rem;
+
+  box-shadow:
+    0 0.6rem 1.8rem rgba(35, 24, 15, 0.24);
+
+  color: #694a36;
+  text-align: center;
+  direction: rtl;
+
+  overflow: hidden;
+
+  transform-origin: top right;
+  animation: about-card-open 0.25s ease-out;
+
+  z-index: 5001;
+}
+
+/* ===================================== */
+/*             CLOSE BUTTON              */
+/* ===================================== */
+
+.first-page-about-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+
+  width: 2.8rem;
+  height: 2.8rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+
+  color: #87674d;
+  font-family: Arial, sans-serif;
+  font-size: 2.4rem;
+
+  cursor: pointer;
+  z-index: 10;
+}
+
+.first-page-about-close:hover {
+  background: rgba(135, 103, 77, 0.12);
+}
+
+/* ===================================== */
+/*                TEXT                   */
+/* ===================================== */
+
+.first-page-about-modal h2,
+.first-page-about-modal h3,
+.first-page-about-modal p {
+  position: absolute;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 94%;
+  margin: 0;
+  padding: 0;
+
+  color: #694a36;
+  text-align: center;
+}
+
+.first-page-about-modal h2,
+.first-page-about-modal h3 {
+  font-family: mplusExtraBold, Arial, sans-serif;
+  font-size: 2.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.first-page-about-modal p {
+  font-family: mplusBold, Arial, sans-serif;
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+/* ===================================== */
+/*             MAIN DEVELOPER            */
+/* ===================================== */
+
+.first-page-about-modal .about-main-title {
+  top: 5.5%;
+}
+
+.first-page-about-modal .about-character {
+  position: absolute;
+
+  top: 10%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 65%;
+  height: 30%;
+
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.first-page-about-modal .about-developer-name {
+  top: 37%;
+}
+
+/* ===================================== */
+/*               GRAPHICS                */
+/* ===================================== */
+
+.first-page-about-modal .about-graphics-title {
+  top: 45%;
+}
+
+.first-page-about-modal .about-graphics-name {
+  top: 50.5%;
+}
+
+/* ===================================== */
+/*            CONTENT EXPERTS            */
+/* ===================================== */
+
+.first-page-about-modal .about-experts-title {
+  top: 57.5%;
+}
+
+.first-page-about-modal .about-experts-name {
+  top: 63%;
+}
+
+/* ===================================== */
+/*               COMMANDER               */
+/* ===================================== */
+
+.first-page-about-modal .about-commander-title {
+  top: 71%;
+}
+
+.first-page-about-modal .about-commander-name {
+  top: 76.5%;
+}
+
+/* ===================================== */
+/*                VERSION                */
+/* ===================================== */
+
+.first-page-about-modal .about-version-title {
+  top: 86%;
+}
+
+.first-page-about-modal .about-version-date {
+  top: 91%;
+}
+
+/* ===================================== */
+/*               ANIMATION               */
+/* ===================================== */
+
+
+@keyframes about-card-open {
+  from {
+    opacity: 0;
+    transform: translateY(-0.8rem) rotate(5deg) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(5deg) scale(1);
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .first-page-about-modal {
+    animation: none;
+  }
 }

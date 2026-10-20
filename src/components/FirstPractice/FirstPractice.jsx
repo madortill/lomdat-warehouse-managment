@@ -18,6 +18,7 @@ import lightBulb from "../../../media/FirstPractice/light-bulb.svg";
 import smallArrow from "../../../media/SupplyTypes/small-arrow.svg";
 
 import "./FirstPractice.css";
+import { STORAGE_KEYS, readStoredObject, writeStoredObject } from "../../utils/practiceStorage.js";
 
 // ====================================
 // תמונות הקופסאות
@@ -43,24 +44,57 @@ const OPEN_BOX_IDS = new Set([
   "move",
 ]);
 
-function FirstPractice({ onComplete, onBackToMaterial, onSkipPractice }) {
+function FirstPractice({ onComplete, onBackToMaterial, onGoNext }) {
   // ====================================
   // STATES
   // ====================================
 
-  const [placements, setPlacements] = useState({});
-  const [results, setResults] = useState({});
+  // Restore the last saved state when returning to page 18 or reloading.
+  const [savedPractice] = useState(() =>
+    readStoredObject(STORAGE_KEYS.firstPractice)
+  );
+
+  const [placements, setPlacements] = useState(() =>
+    savedPractice?.placements &&
+    typeof savedPractice.placements === "object" &&
+    !Array.isArray(savedPractice.placements)
+      ? savedPractice.placements
+      : {}
+  );
+  const [results, setResults] = useState(() =>
+    savedPractice?.results &&
+    typeof savedPractice.results === "object" &&
+    !Array.isArray(savedPractice.results)
+      ? savedPractice.results
+      : {}
+  );
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [activeHintSlot, setActiveHintSlot] = useState(null);
 
-  // 0 = הוראות ראשונות
-  // 1 = הוראות שניות
-  // null = התרגול
-  const [instructionsPage, setInstructionsPage] = useState(0);
+  // 0 = first instructions; 1 = second instructions; null = practice.
+  const [instructionsPage, setInstructionsPage] = useState(() => {
+    const saved = savedPractice?.instructionsPage;
+    return saved === 0 || saved === 1 || saved === null ? saved : 0;
+  });
 
-  const [isComplete, setIsComplete] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [isComplete, setIsComplete] = useState(
+    () => savedPractice?.isComplete === true
+  );
+  const [showSuccess, setShowSuccess] = useState(
+    () => savedPractice?.showSuccess === true
+  );
   const [dragPreview, setDragPreview] = useState(null);
+
+  // Keep placement, grading, instructions, and completion persisted.
+  useEffect(() => {
+    writeStoredObject(STORAGE_KEYS.firstPractice, {
+      placements,
+      results,
+      instructionsPage,
+      isComplete,
+      showSuccess,
+    });
+  }, [placements, results, instructionsPage, isComplete, showSuccess]);
 
   // ====================================
   // REFS
@@ -377,20 +411,55 @@ function FirstPractice({ onComplete, onBackToMaterial, onSkipPractice }) {
     ? null
     : practiceData.instructions[instructionsPage];
 
-  const closeModal = () => {
-    setInstructionsPage(null);
-    setShowSuccess(false);
-  };
 
-  const continueModal = () => {
-    if (showSuccess) {
-      setShowSuccess(false);
-    } else if (instructionsPage === 0) {
-      setInstructionsPage(1);
-    } else {
-      setInstructionsPage(null);
-    }
-  };
+// ====================================
+// SUCCESS - SAVE AND GO TO NEXT PAGE
+// ====================================
+
+const finishSuccessAndGoNext = () => {
+  // שמירה מיידית לפני היציאה מהעמוד
+  writeStoredObject(STORAGE_KEYS.firstPractice, {
+    placements,
+    results,
+    instructionsPage: null,
+    isComplete: true,
+    showSuccess: false,
+  });
+
+  setInstructionsPage(null);
+  setShowSuccess(false);
+
+  // מעבר לעמוד 19
+  onGoNext?.();
+};
+
+// ====================================
+// CLOSE MODAL
+// ====================================
+
+const closeModal = () => {
+  if (showSuccess) {
+    finishSuccessAndGoNext();
+    return;
+  }
+
+  setInstructionsPage(null);
+};
+
+// ====================================
+// CONTINUE MODAL
+// ====================================
+
+const continueModal = () => {
+  if (showSuccess) {
+    finishSuccessAndGoNext();
+  } else if (instructionsPage === 0) {
+    setInstructionsPage(1);
+  } else {
+    setInstructionsPage(null);
+  }
+};
+
 
   // ====================================
   // RENDER
@@ -425,20 +494,18 @@ function FirstPractice({ onComplete, onBackToMaterial, onSkipPractice }) {
 
       {/* כפתור דילוג */}
 
-      {/* ====================================
-    TEMPORARY SKIP BUTTON
-    להסיר לאחר סיום פיתוח התרגול
-==================================== */}
 
-      {!modalOpen && (
-        <button
-          type="button"
-          className="first-practice-skip"
-          onClick={onSkipPractice}
-        >
-          דלג על התרגול 
-        </button>
-      )}
+{/* כפתור מעבר לעמוד הבא לאחר השלמה */}
+
+{isComplete && !modalOpen && (
+  <button
+    type="button"
+    className="first-practice-back-to-material first-practice-next-page"
+    onClick={onGoNext}
+  >
+    לעמוד הבא
+  </button>
+)}
 
 
       {/* ====================================

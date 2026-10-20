@@ -13,16 +13,22 @@ import insects from "../../../media/InfoPage/insects.svg";
 import mushrooms from "../../../media/InfoPage/mushrooms.svg";
 import sun from "../../../media/InfoPage/sun.svg";
 
+import supplyFile from "../../../media/InfoPage/supply-file.svg";
+import supplyTable from "../../../media/InfoPage/supply-table.svg";
+import erp from "../../../media/InfoPage/erp.svg";
+
 import "./InfoPage.css";
 
 // ====================================
-// NEW PAGE - EQUIPMENT RECEIPT FLOW
+// PAGE NUMBERS
 // ====================================
 
 export const EQUIPMENT_RECEIPT_PAGE = 35;
+export const WAREHOUSE_CONTROL_PAGE = 37;
+export const WAREHOUSE_CONTROL_CARD_COUNT = 3;
 
 // ====================================
-// CARD IMAGES
+// ORIGINAL FLIP CARD IMAGES
 // ====================================
 
 const CARD_IMAGES = {
@@ -33,13 +39,49 @@ const CARD_IMAGES = {
 };
 
 // ====================================
-// RECEIPT FLOW - NODES
+// WAREHOUSE CONTROL CARDS
 //
-// x, y: מיקום בתוך אזור התרשים באחוזים
-// width: רוחב הכרטיסייה
+// סדר הכרטיסיות:
+// 1. דף תכולה
+// 2. טבלת פריטים קריטיים
+// 3. מערכת ERP
+//
+// התמונות משויכות לפי התיקון
+// שביצענו קודם.
 // ====================================
 
-const RECEIPT_NODES = [
+const WAREHOUSE_CONTROL_CARDS = [
+  {
+    id: "supply-file",
+    title: "דף תכולה",
+    image: supplyTable,
+    description:
+      "דף תכולה הוא מסמך המוצג בקדמת תא האחסון ובו מידע על הציוד המאוחסן, הכמות ומיקום האחסנה.",
+  },
+  {
+    id: "supply-table",
+    title: "טבלת פריטים קריטיים",
+    image: supplyFile,
+    description:
+      "טבלת פריטים קריטיים מסייעת במעקב אחר פריטים חיוניים במחסן, לרבות מיקומם, תקינותם והערות נוספות.",
+  },
+  {
+    id: "erp",
+    title: "מערכת ERP",
+    image: erp,
+    description:
+      "מערכת ERP היא מערכת ממוחשבת לניהול המלאי במחסן. המערכת מאפשרת מעקב אחר קליטות, ניפוקים ותנועות ציוד.",
+  },
+];
+
+// ====================================
+// EQUIPMENT RECEIPT FLOW NODES
+// PAGE 35
+//
+// משותף גם ל-SecondPractice
+// ====================================
+
+export const RECEIPT_NODES = [
   {
     id: "check",
     text: "בדיקת הציוד",
@@ -123,13 +165,11 @@ const RECEIPT_NODES = [
 ];
 
 // ====================================
-// RECEIPT FLOW - CONNECTING ARROWS
-//
-// חיצים ירוקים: מסלול תקין
-// חיצים אדומים: טיפול או בלאי
+// RECEIPT FLOW ARROWS
+// PAGE 35
 // ====================================
 
-function ReceiptFlowArrows() {
+export function ReceiptFlowArrows() {
   return (
     <svg
       className="info-page-receipt-lines"
@@ -148,7 +188,7 @@ function ReceiptFlowArrows() {
           orient="auto"
         >
           <path
-            d="M 0 0 L 10 5 L 0 10 Z"
+            d="M0 0 L10 5 L0 10 Z"
             fill="#62A85B"
           />
         </marker>
@@ -163,86 +203,75 @@ function ReceiptFlowArrows() {
           orient="auto"
         >
           <path
-            d="M 0 0 L 10 5 L 0 10 Z"
+            d="M0 0 L10 5 L0 10 Z"
             fill="#E15B55"
           />
         </marker>
       </defs>
 
-      {/* בדיקת הציוד -> לא תקין */}
       <path
         className="info-page-flow-path is-red"
-        d="M 375 47 C 315 47, 315 77, 315 107"
+        d="M375 47 C315 47 315 77 315 107"
         markerEnd="url(#receipt-red-arrow)"
       />
 
-      {/* בדיקת הציוד -> תקין */}
       <path
         className="info-page-flow-path is-green"
-        d="M 625 47 C 700 47, 700 77, 700 107"
+        d="M625 47 C700 47 700 77 700 107"
         markerEnd="url(#receipt-green-arrow)"
       />
 
-      {/* לא תקין -> דרוש טיפול */}
       <path
         className="info-page-flow-path is-red"
-        d="M 190 153 C 104 159, 112 232, 200 246"
+        d="M190 153 C104 159 112 232 200 246"
         markerEnd="url(#receipt-red-arrow)"
       />
 
-      {/* לא תקין -> בלוי */}
       <path
         className="info-page-flow-path is-red"
-        d="M 440 153 C 510 153, 510 210, 510 250"
+        d="M440 153 C510 153 510 210 510 250"
         markerEnd="url(#receipt-red-arrow)"
       />
 
-      {/* תקין -> חזרה לארגז */}
       <path
         className="info-page-flow-path is-green"
-        d="M 825 153 C 915 153, 875 222, 830 250"
+        d="M825 153 C915 153 875 222 830 250"
         markerEnd="url(#receipt-green-arrow)"
       />
 
-      {/* דרוש טיפול -> בדיקה חוזרת */}
       <path
         className="info-page-flow-path is-green"
-        d="M 89 289 C 34 302, 47 350, 115 358"
+        d="M89 289 C34 302 47 350 115 358"
         markerEnd="url(#receipt-green-arrow)"
       />
 
-      {/* דרוש טיפול -> בלאי */}
       <path
         className="info-page-flow-path is-red"
-        d="M 310 289 C 355 291, 370 333, 370 360"
+        d="M310 289 C355 291 370 333 370 360"
         markerEnd="url(#receipt-red-arrow)"
       />
 
-      {/* בלוי -> פינת בלאי */}
       <path
         className="info-page-flow-path is-red"
-        d="M 588 322 C 584 407, 481 489, 475 507"
+        d="M588 322 C584 407 481 489 475 507"
         markerEnd="url(#receipt-red-arrow)"
       />
 
-      {/* בדיקה חוזרת -> תקין */}
       <path
         className="info-page-flow-path is-green"
-        d="M 115 444 L 115 467"
+        d="M115 444 L115 467"
         markerEnd="url(#receipt-green-arrow)"
       />
 
-      {/* בלאי -> פינת בלאי */}
       <path
         className="info-page-flow-path is-red"
-        d="M 370 445 L 370 464"
+        d="M370 445 L370 464"
         markerEnd="url(#receipt-red-arrow)"
       />
 
-      {/* תקין -> חזרה לארגז */}
       <path
         className="info-page-flow-path is-green"
-        d="M 115 548 L 115 563"
+        d="M115 548 L115 563"
         markerEnd="url(#receipt-green-arrow)"
       />
     </svg>
@@ -250,8 +279,7 @@ function ReceiptFlowArrows() {
 }
 
 // ====================================
-// RECEIPT FLOW SCREEN
-// PAGE 35
+// PAGE 35 - EQUIPMENT RECEIPT
 // ====================================
 
 function EquipmentReceiptFlow() {
@@ -290,9 +318,7 @@ function EquipmentReceiptFlow() {
                 "--node-width": node.width,
               }}
             >
-              <span dir="rtl">
-                {node.text}
-              </span>
+              <span dir="rtl">{node.text}</span>
             </div>
           ))}
         </div>
@@ -309,6 +335,177 @@ function EquipmentReceiptFlow() {
 }
 
 // ====================================
+// PAGE 37 - WAREHOUSE CONTROL CARDS
+//
+// שלוש כרטיסיות בתוך הארגז הגדול.
+//
+// הכרטיסייה הפעילה גדולה,
+// האחרות קטנות.
+//
+// שלוש נקודות הניווט נמצאות
+// מחוץ לכרטיסיות, מתחתיהן,
+// אבל עדיין בתוך הארגז הגדול.
+// ====================================
+
+function WarehouseControlCards({
+  activeIndex = 0,
+  onChange,
+}) {
+  const safeIndex = Math.max(
+    0,
+    Math.min(
+      WAREHOUSE_CONTROL_CARD_COUNT - 1,
+      activeIndex
+    )
+  );
+
+  const changeCard = (index) => {
+    if (index === safeIndex) return;
+
+    onChange?.(index);
+  };
+
+  return (
+    <section
+      className="info-page info-page-control"
+      dir="rtl"
+      aria-label="עזרי השליטה במחסן"
+    >
+      <div className="info-page-box">
+        {/* ====================================
+            LARGE BOX BACKGROUND
+        ==================================== */}
+
+        <img
+          className="info-page-box-img"
+          src={largeBox}
+          alt=""
+          draggable="false"
+        />
+
+        {/* ====================================
+            MAIN TITLE
+        ==================================== */}
+
+        <h2 className="info-page-control-title">
+          עזרי השליטה במחסן
+        </h2>
+
+        {/* ====================================
+            THREE CARDS
+        ==================================== */}
+
+        <div className="info-page-control-cards">
+          {WAREHOUSE_CONTROL_CARDS.map(
+            (card, index) => {
+              const isActive =
+                index === safeIndex;
+
+              return (
+                <div
+                  key={card.id}
+                  className={[
+                    "info-page-control-card",
+                    isActive
+                      ? "is-active"
+                      : "is-inactive",
+                  ].join(" ")}
+                >
+                  {/* לחיצה על כרטיסייה מצומצמת */}
+
+                  <button
+                    type="button"
+                    className="info-page-control-card-select"
+                    onClick={() => changeCard(index)}
+                    disabled={isActive}
+                    aria-label={
+                      isActive
+                        ? `כרטיסייה פעילה: ${card.title}`
+                        : `פתיחת הכרטיסייה: ${card.title}`
+                    }
+                  />
+
+                  {/* תוכן הכרטיסייה הפעילה */}
+
+                  {isActive && (
+                    <div className="info-page-control-card-content">
+                      <h3 className="info-page-control-card-heading">
+                        {card.title}
+                      </h3>
+
+                      <img
+                        className="info-page-control-card-image"
+                        src={card.image}
+                        alt={card.title}
+                        draggable="false"
+                      />
+
+                      <p className="info-page-control-card-description">
+                        {card.description}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              );
+            }
+          )}
+        </div>
+
+        {/* ====================================
+            THREE NAVIGATION DOTS
+
+            מחוץ לכרטיסיות!
+            מתחת לקבוצת הכרטיסיות!
+            עדיין בתוך הקופסה הגדולה!
+        ==================================== */}
+
+        <nav
+          className="info-page-control-dots"
+          aria-label="מעבר בין כרטיסיות"
+        >
+          {WAREHOUSE_CONTROL_CARDS.map(
+            (card, index) => {
+              const isCurrent =
+                index === safeIndex;
+
+              return (
+                <button
+                  key={card.id}
+                  type="button"
+                  className={`info-page-control-dot ${
+                    isCurrent
+                      ? "is-current"
+                      : ""
+                  }`}
+                  onClick={() => changeCard(index)}
+                  aria-label={`מעבר לכרטיסייה ${index + 1}: ${card.title}`}
+                  aria-current={
+                    isCurrent
+                      ? "step"
+                      : undefined
+                  }
+                />
+              );
+            }
+          )}
+        </nav>
+      </div>
+
+      {/* ====================================
+          ZIGI
+      ==================================== */}
+
+      <img
+        className="info-page-control-zigi"
+        src={sideZigi}
+        alt="זיגי המלגזה"
+        draggable="false"
+      />
+    </section>
+  );
+}
+
+// ====================================
 // MAIN INFO PAGE COMPONENT
 // ====================================
 
@@ -316,11 +513,14 @@ function InfoPage({
   pageNum,
   onCardSeen,
   seenCardIds = [],
+  controlCardIndex = 0,
+  onControlCardChange,
 }) {
-  const [flippedCards, setFlippedCards] = useState([]);
+  const [flippedCards, setFlippedCards] =
+    useState([]);
 
   // ====================================
-  // HANDLE CARD CLICK
+  // ORIGINAL FLIP CARDS
   // ====================================
 
   const handleCardClick = (cardIndex) => {
@@ -341,7 +541,20 @@ function InfoPage({
   };
 
   // ====================================
-  // PAGE 35 - EQUIPMENT RECEIPT FLOW
+  // PAGE 37 - CONTROL CARDS
+  // ====================================
+
+  if (pageNum === WAREHOUSE_CONTROL_PAGE) {
+    return (
+      <WarehouseControlCards
+        activeIndex={controlCardIndex}
+        onChange={onControlCardChange}
+      />
+    );
+  }
+
+  // ====================================
+  // PAGE 35 - RECEIPT FLOW
   // ====================================
 
   if (pageNum === EQUIPMENT_RECEIPT_PAGE) {
@@ -401,9 +614,7 @@ function InfoPage({
                     aria-label={
                       isFlipped
                         ? `הסתרת כרטיס ${card.title}`
-                        : `חשיפת כרטיס מספר ${
-                            index + 1
-                          }`
+                        : `חשיפת כרטיס מספר ${index + 1}`
                     }
                   >
                     <span className="info-flip-card-inner">
@@ -422,9 +633,7 @@ function InfoPage({
 
                         <img
                           className="info-card-icon"
-                          src={
-                            CARD_IMAGES[card.id]
-                          }
+                          src={CARD_IMAGES[card.id]}
                           alt=""
                           draggable="false"
                         />
@@ -538,9 +747,10 @@ function InfoPage({
   // PAGES 4-7 - TEXT SCREENS
   // ====================================
 
-  const currentScreen = content.textScreens.find(
-    (screen) => screen.page === pageNum
-  );
+  const currentScreen =
+    content.textScreens.find(
+      (screen) => screen.page === pageNum
+    );
 
   if (currentScreen) {
     return (

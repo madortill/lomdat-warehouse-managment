@@ -1,0 +1,608 @@
+
+/* ===================================== */
+/*          SAFETY GUIDELINES            */
+/* ===================================== */
+
+/* ===================================== */
+/*                 FONT                  */
+/* ===================================== */
+
+@font-face {
+  font-family: "SafetyItayMaor";
+  src: url("../../../media/fonts/OHItayMaor-Regular.ttf")
+    format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* ===================================== */
+/*             MAIN SCREEN               */
+/* ===================================== */
+
+.safety-guidelines {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  direction: rtl;
+  overflow: hidden;
+
+  z-index: 10;
+  pointer-events: none;
+
+  font-family: "SafetyItayMaor", sans-serif;
+}
+
+/* ===================================== */
+/*               NOTEBOOK                */
+/* ===================================== */
+
+.safety-guidelines-notebook {
+  position: absolute;
+
+  top: 8%;
+  left: 47%;
+
+  transform: translateX(-50%);
+
+  width: 122rem;
+  height: 75rem;
+
+  direction: rtl;
+
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ===================================== */
+/*           NOTEBOOK BACKGROUND         */
+/* ===================================== */
+
+.safety-guidelines-notebook-image {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: fill;
+
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ===================================== */
+/*                 TITLE                 */
+/* ===================================== */
+
+.safety-guidelines-title {
+  position: absolute;
+
+  top: 8%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: 73%;
+  margin: 0;
+
+  color: #765037;
+
+  font-family: "SafetyItayMaor", sans-serif;
+  font-size: 5rem;
+  font-weight: 400;
+  line-height: 1.15;
+
+  text-align: center;
+  white-space: nowrap;
+
+  z-index: 3;
+}
+
+/* ===================================== */
+/*             GUIDELINES LIST           */
+/* ===================================== */
+
+/*
+ * אזור ארבע שורות הטקסט.
+ *
+ * שינוי:
+ * right: 11% -> 15%
+ * left: 10% -> 6%
+ *
+ * כך כל האזור זז שמאלה
+ * מבלי לשנות את רוחבו.
+ */
+
+.safety-guidelines-list {
+  position: absolute;
+
+  top: 17.5%;
+
+  right: 15%;
+  left: 6%;
+
+  height: 45%;
+
+  direction: rtl;
+
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* ===================================== */
+/*               SINGLE ROW              */
+/* ===================================== */
+
+/*
+ * שינוי:
+ * מרווח בין משפטים:
+ * 6.1rem -> 7.4rem
+ */
+
+.safety-guidelines-item {
+  position: absolute;
+
+  top: calc(
+    var(--safety-row-index) * 8.4rem
+  );
+
+  right: 0;
+  left: 0;
+
+  display: block;
+
+  width: 100%;
+  min-height: 5rem;
+
+  padding: 0 4.5rem 0 0;
+  margin: 0;
+
+  border: none;
+  background: transparent;
+
+  color: #886044;
+
+  font-family: "SafetyItayMaor", sans-serif;
+  font-size: 3.35rem;
+  font-weight: 400;
+  line-height: 1.15;
+
+  text-align: right;
+  direction: rtl;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  cursor: pointer;
+  pointer-events: auto;
+
+  opacity: 1;
+
+  transition:
+    opacity 0.3s ease,
+    color 0.3s ease,
+    filter 0.3s ease;
+}
+
+/* ===================================== */
+/*              CHECKBOX IMAGE           */
+/* ===================================== */
+
+/*
+ * אותו גודל ומיקום לשתי התמונות:
+ * check-box.svg - משפט שכבר נפתח
+ * square.svg - משפט שעדיין לא נפתח
+ */
+
+.safety-guidelines-checkbox {
+  position: absolute;
+
+  top: 0.3rem;
+  right: 0;
+
+  display: block;
+
+  width: 3.4rem;
+  height: 3rem;
+
+  object-fit: contain;
+
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ===================================== */
+/*              GUIDELINE TEXT           */
+/* ===================================== */
+
+.safety-guidelines-item-text {
+  display: block;
+
+  width: 100%;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+
+  text-align: right;
+  direction: rtl;
+
+  white-space: normal;
+  overflow-wrap: normal;
+}
+
+/* ===================================== */
+/*              CURRENT STEP             */
+/* ===================================== */
+
+.safety-guidelines-item.is-current {
+  color: #805535;
+
+  opacity: 1;
+
+  text-shadow:
+    0 0 0.03rem currentColor;
+
+  cursor: default;
+  pointer-events: none;
+}
+
+.safety-guidelines-item.is-current
+.safety-guidelines-checkbox {
+  opacity: 1;
+}
+
+/* ===================================== */
+/*              VISITED STEPS            */
+/* ===================================== */
+
+.safety-guidelines-item.is-past {
+  color: #927054;
+
+  opacity: 0.53;
+
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.safety-guidelines-item.is-past:hover {
+  opacity: 0.88;
+  color: #805535;
+}
+
+/* ===================================== */
+/*              FUTURE STEPS             */
+/* ===================================== */
+
+/*
+ * משפטים שעדיין לא ביקרנו בהם:
+ *
+ * טקסט שקוף
+ * ריבוע ריק
+ * אין אפשרות ללחוץ
+ */
+
+.safety-guidelines-item.is-future {
+  color: #b8a18c;
+
+  opacity: 0.18;
+
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ===================================== */
+/*             DISABLED BUTTONS          */
+/* ===================================== */
+
+.safety-guidelines-item:disabled {
+  cursor: default;
+}
+
+/* ===================================== */
+/*             FOCUS INDICATOR           */
+/* ===================================== */
+
+.safety-guidelines-item:focus-visible {
+  outline: 0.22rem dashed #aa7b4e;
+  outline-offset: 0.25rem;
+
+  border-radius: 0.3rem;
+}
+
+/* ===================================== */
+/*           ILLUSTRATION AREA           */
+/* ===================================== */
+
+.safety-guidelines-illustration-area {
+  position: absolute;
+
+  left: 46.5%;
+  bottom: 6%;
+
+  transform: translateX(-50%);
+
+  width: 60rem;
+  height: 32rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ===================================== */
+/*              ACTIVE IMAGE             */
+/* ===================================== */
+
+.safety-guidelines-illustration {
+  display: block;
+
+  width: var(
+    --safety-image-width,
+    44rem
+  );
+
+  height: var(
+    --safety-image-height,
+    29rem
+  );
+
+  max-width: 100%;
+  max-height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+
+  animation:
+    safety-guidelines-image-enter
+    0.3s ease both;
+}
+
+/* ===================================== */
+/*             IMAGE ANIMATION           */
+/* ===================================== */
+
+@keyframes safety-guidelines-image-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.6rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===================================== */
+/*          ACCESSIBILITY TEXT           */
+/* ===================================== */
+
+.safety-guidelines-screen-reader {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+  clip-path: inset(50%);
+
+  white-space: nowrap;
+}
+
+/* ===================================== */
+/*              SMALL EFFECTS            */
+/* ===================================== */
+
+.safety-guidelines-item.is-past
+.safety-guidelines-item-text {
+  transition:
+    color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+/* ===================================== */
+/*             REDUCED MOTION            */
+/* ===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .safety-guidelines-item,
+  .safety-guidelines-item-text {
+    transition: none;
+  }
+
+  .safety-guidelines-illustration {
+    animation: none;
+  }
+}
+
+/* מיקום התמונות בחלק השני בלבד */
+.safety-guidelines-illustration-area.is-second-group {
+  left: 51%;
+  bottom:1%;
+}
+
+/* ===================================== */
+/*    SAFETY INTRO - TWO NEW SCREENS      */
+/* ===================================== */
+
+
+/* Only these two intro screens change; the notebook above is untouched. */
+.safety-guidelines-intro {
+  z-index: 10;
+}
+
+/* Same SVG and layout proportions as the LARGE BOX in InfoPage. */
+.safety-guidelines-intro-box {
+  position: absolute;
+  top: 0;
+  left: 45.5%;
+  transform: translateX(-50%);
+  width: 86.4rem;
+  aspect-ratio: 1175 / 1168;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.safety-guidelines-intro-box-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Video introduction title, over the header of the large InfoPage box. */
+.safety-guidelines-intro-title {
+  position: absolute;
+  top: 13.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  margin: 0;
+  color: #8c6042;
+  font-family: mplusExtraBold, sans-serif;
+  font-size: 3.15rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  direction: rtl;
+  white-space: nowrap;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* The video sits OVER the original box artwork, not on a CSS-made box. */
+.safety-guidelines-video-wrap {
+  position: absolute;
+  top: 30%;
+  left: 7.5%;
+  width: 85%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #25201e;
+  box-shadow: 0 0.3rem 0.7rem rgba(43, 27, 18, 0.2);
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.safety-guidelines-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #25201e;
+  pointer-events: auto;
+}
+
+.safety-guidelines-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10rem;
+  height: 10rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(28, 27, 26, 0.3);
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 3;
+}
+
+.safety-guidelines-video-play span {
+  width: 0;
+  height: 0;
+  margin-left: 0.9rem;
+  border-top: 3rem solid transparent;
+  border-bottom: 3rem solid transparent;
+  border-left: 4.5rem solid #dbdddf;
+  filter: drop-shadow(0 0.2rem 0.4rem rgba(0, 0, 0, 0.4));
+}
+
+.safety-guidelines-video-play:hover {
+  background: rgba(28, 27, 26, 0.5);
+}
+
+.safety-guidelines-video-play:focus-visible {
+  outline: 0.35rem solid #fff2c8;
+  outline-offset: -0.3rem;
+}
+
+/* Same box, explanatory text instead of the video. Mplus as requested. */
+.safety-guidelines-intro-text {
+  position: absolute;
+  top: 25%;
+  left: 12%;
+  width: 76%;
+  height: 54%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #78503a;
+  font-family: mplusMedium, sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  direction: rtl;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.safety-guidelines-intro-text p {
+  width: 100%;
+  margin: 0 0 1.5rem;
+}
+
+.safety-guidelines-intro-text p:last-child {
+  margin-bottom: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .safety-guidelines-video-play {
+    transition: none;
+  }
+}
+
+
+/* ===================================== */
+/*   SIDE ZIGI - TWO INTRO BOX SCREENS    */
+/* ===================================== */
+
+.safety-guidelines-intro-zigi {
+  position: absolute;
+  right: 12%;
+  bottom: 9%;
+  width: 41.4rem;
+  height: auto;
+
+  z-index: 3;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}

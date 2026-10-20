@@ -59,8 +59,8 @@
 .open-field-sand-hills {
   position: absolute;
 
-  left: 0;
-  bottom: 7%;
+  left: 4%;
+  bottom: 3%;
 
   width: 100%;
   height: auto;
@@ -83,7 +83,7 @@
   position: absolute;
 
   left: 10.2%;
-  bottom: 13.5%;
+  bottom: 12.5%;
 
   width: 45.5%;
   height: auto;
