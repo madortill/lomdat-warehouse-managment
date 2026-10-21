@@ -8,7 +8,7 @@ import React, {
 
 import tillLogo from "../media/Till-logo.png";
 import bahad6Logo from "../media/bahad-6-logo.png";
-import InstructionsImg from "../media/Instructions.svg";
+import bahad6ForLogo from "../media/bahad6.svg"
 
 import "./App.css";
 
