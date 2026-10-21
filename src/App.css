@@ -224,3 +224,32 @@ img {
   background-color: #a31010;
   color: #ffffff;
 }
+
+
+/* ==================================== */
+/* BACKGROUND FOR ALL SCREEN RATIOS     */
+/* ==================================== */
+
+/* רקע שממלא את כל חלון הדפדפן */
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: -5%;
+
+  background-image: url("../media/background.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  filter: blur(2rem) brightness(1);
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* הלומדה נשארת מעל הרקע */
+#root {
+  position: relative;
+  z-index: 1;
+}
