@@ -132,6 +132,9 @@ function FirstPage({
             <p className="about-experts-name">
              סמ״ר איתמר חלילי
             </p>
+            <p className="about-experts-name-second">
+              רס״ל הדר בן דוד
+            </p>
 
             <h3 className="about-commander-title">
               רמ״ד טי״ל:

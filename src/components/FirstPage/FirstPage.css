@@ -503,7 +503,11 @@
 }
 
 .first-page-about-modal .about-experts-name {
-  top: 63%;
+  top: 62%;
+}
+
+.first-page-about-modal .about-experts-name-second {
+  top: 65.8%;
 }
 
 /* ===================================== */
@@ -511,7 +515,7 @@
 /* ===================================== */
 
 .first-page-about-modal .about-commander-title {
-  top: 71%;
+  top: 72.5%;
 }
 
 .first-page-about-modal .about-commander-name {
