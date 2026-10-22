@@ -734,7 +734,7 @@ function App() {
 
       {/* NAVBAR */}
 
-      {pageNum >= 2 &&
+      {pageNum >= 1 &&
         pageNum < END_PAGE &&
         pageNum !== SECOND_PRACTICE_PAGE && (
 

@@ -12,7 +12,15 @@ function Navbar({
   maxPageReached,
   onNavigate,
 }) {
-  const [isOpen, setIsOpen] = useState(false);
+  
+const isInstructionsPage = currentPage === 1;
+
+const [isOpen, setIsOpen] = useState(isInstructionsPage);
+
+useEffect(() => {
+  setIsOpen(isInstructionsPage);
+}, [isInstructionsPage]);
+
   const navbarRef = useRef(null);
 
   // ====================================
