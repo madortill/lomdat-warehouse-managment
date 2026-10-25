@@ -11,6 +11,8 @@ import tillLogo from "../media/Till-logo.png";
 import bahad6Logo from "../media/bahad-6-logo.png";
 import bahad6ForLogo from "../media/bahad6.svg"
 import InstructionsImg from "../media/Instructions.svg";
+import { preloadAssets } from "./utils/preloadAssets";
+
 import "./App.css";
 
 // ====================================
@@ -144,6 +146,32 @@ function App() {
         : 0
     );
 
+
+  // ====================================
+  // PRELOAD COURSE ASSETS
+  // ====================================
+
+  const [assetsLoaded, setAssetsLoaded] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+
+    preloadAssets()
+      .catch((error) => {
+        console.error("שגיאה בטעינה המוקדמת של התמונות:", error);
+      })
+      .finally(() => {
+        if (active) {
+          setAssetsLoaded(true);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  
   // ====================================
   // SAFETY GUIDELINES
   // ====================================
@@ -302,6 +330,7 @@ function App() {
 
       safetyStep,
       maxSafetyStepReached,
+      safetyVideoCompleted,
 
       seenInfoCards,
       completedSupplySteps,
@@ -667,6 +696,20 @@ function App() {
               )
             )
           );
+
+  // ====================================
+  // LOADING SCREEN
+  // All React hooks above this point have executed.
+  // ====================================
+
+  if (!assetsLoaded) {
+    return (
+      <div className="app-loading" role="status" aria-live="polite">
+        <div className="app-loading-spinner" aria-hidden="true" />
+        <p>טוענים את הלומדה...</p>
+      </div>
+    );
+  }
 
   // ====================================
   // MOBILE BLOCKER
