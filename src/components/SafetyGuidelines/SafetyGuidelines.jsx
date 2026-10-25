@@ -137,6 +137,7 @@ function SafetyGuidelines({
     currentStep = 0,
     maxReachedStep = 0,
     onStepChange,
+    onVideoComplete,
 }) {
     // The video should reset to its preview when returning to this screen.
     const videoRef = useRef(null);
@@ -264,7 +265,10 @@ function SafetyGuidelines({
                                     aria-label="קטע מסדרת המשרד עם מלגזה במחסן"
                                     onPlay={() => setIsVideoPlaying(true)}
                                     onPause={() => setIsVideoPlaying(false)}
-                                    onEnded={() => setIsVideoPlaying(false)}
+                                    onEnded={() => {
+                                        setIsVideoPlaying(false);
+                                        onVideoComplete?.();
+                                    }}
                                 />
 
                                 {!isVideoPlaying && (

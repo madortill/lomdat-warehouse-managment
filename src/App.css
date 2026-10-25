@@ -254,3 +254,52 @@ body::before {
   position: relative;
   z-index: 1;
 }
+
+
+/* ===================================== */
+/*     INSTRUCTIONS - NAVBAR HINT         */
+/* ===================================== */
+
+.instructions-navbar-hint {
+  position: absolute;
+
+  top: 1.5%;
+  left: 39%;
+
+  width: 33%;
+
+  margin: 0;
+
+  color: #FFFCD8;
+  font-family: mplusBold, sans-serif;
+  font-size: 2.15rem;
+  font-weight: 800;
+  line-height: 1.55;
+
+  text-align: center;
+  direction: rtl;
+
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* ===================================== */
+/*      INSTRUCTIONS - BEIGE ARROW        */
+/* ===================================== */
+
+.instructions-navbar-arrow {
+  position: absolute;
+
+  top: -0.5%;
+  left: 69.5%;
+
+  width: 12%;
+  height: auto;
+
+  object-fit: contain;
+
+  z-index: 21;
+
+  pointer-events: none;
+  user-select: none;
+}

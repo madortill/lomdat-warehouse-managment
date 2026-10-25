@@ -6,6 +6,7 @@ import React, {
   useRef,
 } from "react";
 
+import beigeArrow from "../media/beige-arrow.svg";
 import tillLogo from "../media/Till-logo.png";
 import bahad6Logo from "../media/bahad-6-logo.png";
 import bahad6ForLogo from "../media/bahad6.svg"
@@ -113,6 +114,9 @@ function App() {
   }));
 
   const savedCourse = savedProgress.course;
+  const [safetyVideoCompleted, setSafetyVideoCompleted] = useState(
+    () => savedCourse?.safetyVideoCompleted === true
+  );
 
   // ====================================
   // PAGE STATE
@@ -121,22 +125,22 @@ function App() {
   const [pageNum, setPageNum] = useState(() =>
     Number.isInteger(savedCourse?.pageNum)
       ? Math.max(
-          0,
-          Math.min(LAST_PAGE, savedCourse.pageNum)
-        )
-      : 0 
+        0,
+        Math.min(LAST_PAGE, savedCourse.pageNum)
+      )
+      : 0
   );
 
   const [maxPageReached, setMaxPageReached] =
     useState(() =>
       Number.isInteger(savedCourse?.maxPageReached)
         ? Math.max(
-            0,
-            Math.min(
-              LAST_PAGE,
-              savedCourse.maxPageReached
-            )
+          0,
+          Math.min(
+            LAST_PAGE,
+            savedCourse.maxPageReached
           )
+        )
         : 0
     );
 
@@ -147,12 +151,12 @@ function App() {
   const [safetyStep, setSafetyStep] = useState(() =>
     Number.isInteger(savedCourse?.safetyStep)
       ? Math.max(
-          0,
-          Math.min(
-            SAFETY_GUIDELINES_TOTAL_STEPS - 1,
-            savedCourse.safetyStep
-          )
+        0,
+        Math.min(
+          SAFETY_GUIDELINES_TOTAL_STEPS - 1,
+          savedCourse.safetyStep
         )
+      )
       : 0
   );
 
@@ -164,12 +168,12 @@ function App() {
       savedCourse?.maxSafetyStepReached
     )
       ? Math.max(
-          0,
-          Math.min(
-            SAFETY_GUIDELINES_TOTAL_STEPS - 1,
-            savedCourse.maxSafetyStepReached
-          )
+        0,
+        Math.min(
+          SAFETY_GUIDELINES_TOTAL_STEPS - 1,
+          savedCourse.maxSafetyStepReached
         )
+      )
       : 0
   );
 
@@ -278,12 +282,12 @@ function App() {
   ] = useState(() =>
     Number.isInteger(savedCourse?.controlCardIndex)
       ? Math.max(
-          0,
-          Math.min(
-            WAREHOUSE_CONTROL_CARD_COUNT - 1,
-            savedCourse.controlCardIndex
-          )
+        0,
+        Math.min(
+          WAREHOUSE_CONTROL_CARD_COUNT - 1,
+          savedCourse.controlCardIndex
         )
+      )
       : 0
   );
 
@@ -317,6 +321,7 @@ function App() {
     firstPracticeCompleted,
     secondPracticeCompleted,
     controlCardIndex,
+    safetyVideoCompleted,
   ]);
 
   // ====================================
@@ -351,6 +356,8 @@ function App() {
     // הוראות בטיחות
     setSafetyStep(0);
     setMaxSafetyStepReached(0);
+    // איפוס הצפייה בסרטון הבטיחות
+    setSafetyVideoCompleted(false);
   };
 
   // ====================================
@@ -364,6 +371,10 @@ function App() {
     // ------------------------------------
 
     if (pageNum === SAFETY_GUIDELINES_PAGE) {
+
+      if (safetyStep === 0 && !safetyVideoCompleted) {
+        return;
+      }
 
       if (
         safetyStep <
@@ -624,38 +635,38 @@ function App() {
   const canGoNext =
 
     pageNum === SAFETY_GUIDELINES_PAGE
-      ? true
+      ? (safetyStep !== 0 || safetyVideoCompleted)
 
       : pageNum === WAREHOUSE_CONTROL_PAGE
         ? true
 
         : pageNum === SECOND_PRACTICE_PAGE
           ? (
-              secondPracticeCompleted ||
-              secondPracticeCanAdvance
-            )
+            secondPracticeCompleted ||
+            secondPracticeCanAdvance
+          )
 
           : (
-              pageNum < LAST_PAGE &&
+            pageNum < LAST_PAGE &&
 
-              (
-                pageNum !== 2 ||
-                infoPageCompleted
-              ) &&
+            (
+              pageNum !== 2 ||
+              infoPageCompleted
+            ) &&
 
-              (
-                pageNum !== 18 ||
-                firstPracticeCompleted
-              ) &&
+            (
+              pageNum !== 18 ||
+              firstPracticeCompleted
+            ) &&
 
-              (
-                pageNum < 9 ||
-                pageNum > 17 ||
-                completedSupplySteps.includes(
-                  pageNum - 9
-                )
+            (
+              pageNum < 9 ||
+              pageNum > 17 ||
+              completedSupplySteps.includes(
+                pageNum - 9
               )
-            );
+            )
+          );
 
   // ====================================
   // MOBILE BLOCKER
@@ -675,9 +686,8 @@ function App() {
       {/* GLOBAL BACKGROUND */}
 
       <div
-        className={`page-background ${
-          pageNum === 1 ? "blurred" : ""
-        }`}
+        className={`page-background ${pageNum === 1 ? "blurred" : ""
+          }`}
       />
 
       {/* GLOBAL LOGOS */}
@@ -708,14 +718,36 @@ function App() {
 
       {/* PAGE 1 - INSTRUCTIONS */}
 
+
+      {/* ====================================
+    PAGE 1 - INSTRUCTIONS
+==================================== */}
+
       {pageNum === 1 && (
-        <img
-          className="Instructions-img"
-          src={InstructionsImg}
-          alt="הוראות הלומדה"
-          draggable="false"
-        />
+        <>
+          {/* תמונת ההוראות הקיימת */}
+          <img
+            className="Instructions-img"
+            src={InstructionsImg}
+            alt="הוראות הלומדה"
+            draggable="false"
+          />
+
+          {/* הסבר על הנאבבר */}
+          <p className="instructions-navbar-hint">
+            רוצים לחזור על משהו? כאן תוכלו לנווט בין הנושאים שכבר למדתם! נושאים חדשים ייפתחו ככל שתתקדמו בלומדה.
+          </p>
+
+          {/* חץ המצביע אל הנאבבר */}
+          <img
+            className="instructions-navbar-arrow"
+            src={beigeArrow}
+            alt=""
+            draggable="false"
+          />
+        </>
       )}
+
 
       {/* NAVIGATION ARROWS */}
 
@@ -755,15 +787,15 @@ function App() {
         pageNum === WAREHOUSE_CONTROL_PAGE
       ) && (
 
-        <InfoPage
-          pageNum={pageNum}
-          onCardSeen={handleInfoCardSeen}
-          seenCardIds={seenInfoCards}
-          controlCardIndex={controlCardIndex}
-          onControlCardChange={setControlCardIndex}
-        />
+          <InfoPage
+            pageNum={pageNum}
+            onCardSeen={handleInfoCardSeen}
+            seenCardIds={seenInfoCards}
+            controlCardIndex={controlCardIndex}
+            onControlCardChange={setControlCardIndex}
+          />
 
-      )}
+        )}
 
       {/* SUPPLY TYPES - PAGES 9-17 */}
 
@@ -778,24 +810,24 @@ function App() {
 
       {/* FIRST PRACTICE - PAGE 18 */}
 
-   
-{/* FIRST PRACTICE - PAGE 18 */}
 
-{pageNum === 18 && (
-  <FirstPractice
-    onComplete={() => {
-      setFirstPracticeCompleted(true);
-    }}
+      {/* FIRST PRACTICE - PAGE 18 */}
 
-    onBackToMaterial={() => {
-      setPageNum(17);
-    }}
+      {pageNum === 18 && (
+        <FirstPractice
+          onComplete={() => {
+            setFirstPracticeCompleted(true);
+          }}
 
-    onGoNext={() => {
-      setPageNum(19);
-    }}
-  />
-)}
+          onBackToMaterial={() => {
+            setPageNum(17);
+          }}
+
+          onGoNext={() => {
+            setPageNum(19);
+          }}
+        />
+      )}
 
 
       {/* CONTAINER PAGE - PAGES 19-20 */}
@@ -845,6 +877,7 @@ function App() {
           currentStep={safetyStep}
           maxReachedStep={maxSafetyStepReached}
           onStepChange={setSafetyStep}
+          onVideoComplete={() => setSafetyVideoCompleted(true)}
         />
 
       )}
